@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Ecommerce Café – Juanita Sánchez</title>
+
+  <style>
+    :root{
+      --morado:#6A0DAD;
+      --morado-oscuro:#4B0A7F;
+      --blanco:#ffffff;
+      --gris:#f4f4f4;
+      --gris2:#e6e6e6;
+      --texto:#222;
+      --ok:#28a745;
+      --warn:#dc3545;
+      --info:#007bff;
+    }
+
+    *{box-sizing:border-box;}
+
+    body{
+      font-family:system-ui;
+      background:var(--gris);
+      color:var(--texto);
+      padding:20px;
+    }
+
+    h1{
+      text-align:center;
+      color:var(--morado);
+      margin-bottom:20px;
+    }
+
+    /* ====================== PRODUCTOS ====================== */
+    #productos{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+      gap:16px;
+      margin-top:20px;
+    }
+
+    .producto{
+      background:var(--blanco);
+      border:2px solid var(--morado-oscuro);
+      border-radius:10px;
+      padding:12px;
+      text-align:center;
+      box-shadow:0 3px 8px rgba(0,0,0,0.1);
+    }
+
+    .producto img{
+      width:100%;
+      height:160px;
+      object-fit:cover;
+      border-radius:6px;
+    }
+
+    .producto button{
+      background:var(--morado);
+      color:white;
+      border:none;
+      padding:8px 12px;
+      border-radius:6px;
+      margin-top:8px;
+      cursor:pointer;
+    }
+
+    /* ====================== CARRITO ====================== */
+    .carrito{
+      margin-top:40px;
+      background:var(--blanco);
+      padding:16px;
+      border-radius:10px;
+      border:2px solid var(--morado-oscuro);
+      max-width:480px;
+      margin-left:auto;
+      margin-right:auto;
+    }
+
+    #lista-carrito{list-style:none;padding:0;}
+
+    #lista-carrito li{
+      background:var(--gris2);
+      padding:10px;
+      border-radius:6px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:8px;
+    }
+
+    .qty{
+      display:flex;
+      gap:4px;
+      align-items:center;
+    }
+
+    .qty button{
+      border:1px solid var(--morado);
+      background:var(--blanco);
+      cursor:pointer;
+      padding:4px 8px;
+      border-radius:4px;
+    }
+
+    .remove{
+      background:var(--warn);
+      border:none;
+      color:white;
+      padding:5px 8px;
+      border-radius:4px;
+    }
+
+    .vaciar{
+      background:var(--warn);
+      color:white;
+      border:none;
+      width:100%;
+      padding:10px;
+      border-radius:6px;
+      margin-top:10px;
+      cursor:pointer;
+    }
+
+    .finalizar{
+      background:var(--info);
+      color:white;
+      border:none;
+      width:100%;
+      padding:10px;
+      border-radius:6px;
+      margin-top:10px;
+      cursor:pointer;
+    }
+
+    .totales p{
+      margin:6px 0;
+    }
+
+    #paypal-button-container{
+      margin-top:10px;
+      display:none;
+    }
+
+  </style>
+</head>
+
+<body>
+  <h1>☕ Tienda de Café – Juanita Sánchez</h1>
+
+  <!-- ====================== PRODUCTOS ====================== -->
+  <section id="productos"></section>
+
+  <!-- ====================== CARRITO ====================== -->
+  <section class="carrito">
+    <h2>🛒 Carrito</h2>
+    <p><strong>Productos: <span id="cantidad-carrito">0</span></strong></p>
+
+    <ul id="lista-carrito"></ul>
+
+    <div class="totales">
+      <p>Subtotal: <strong id="subtotal-text">$0</strong></p>
+      <p>Descuento: <strong id="descuento-text">$0</strong></p>
+      <p>Impuestos: <strong id="impuestos-text">$0</strong></p>
+      <p>Total: <strong id="total-text">$0</strong></p>
+    </div>
+
+    <button id="btn-vaciar" class="vaciar">Vaciar Carrito</button>
+    <button id="btn-finalizar" class="finalizar">Finalizar Compra</button>
+
+    <div id="paypal-button-container"></div>
+  </section>
+
+  <!-- PAYPAL -->
+  <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
+
+<script>
+/* ==============================
+   DATASET (TUS PRODUCTOS)
+============================== */
+const productos = [
+  {
+    id: 1,
+    nombre: "Café Latte",
+    precio: 9.00,
+    categoria:"Calientes",
+    img: "https://www.arte-latte.com/wp-content/uploads/2020/12/latte-scaled.jpg"
+  },
+  {
+    id: 2,
+    nombre: "Café Cappuccino",
+    precio: 9.00,
+    categoria:"Calientes",
+    img: "https://www.elglobo.com.mx/cdn/shop/products/cappuccino-2_1200x.jpg?v=1618806745"
+  },
+  {
+    id: 3,
+    nombre: "Café Americano",
+    precio: 7.00,
+    categoria:"Calientes",
+    img: "https://i.blogs.es/139e0f/cafe-americano2/840_560.jpeg"
+  },
+  {
+    id: 4,
+    nombre: "Café Affogato",
+    precio: 10.00,
+    categoria:"Fríos",
+    img: "https://www.micaelaskitchen.com/wp-content/uploads/2023/06/Affogato-al-caffe-3.jpg"
+  },
+  {
+    id: 5,
+    nombre: "Café Mocha",
+    precio: 9.00,
+    categoria:"Calientes",
+    img: "https://images.immediate.co.uk/production/volatile/sites/54/2025/06/050620251749106536.png?quality=90&resize=708,643"
+  }
+];
+
+/* ==============================
+   ESTADO
+============================== */
+let carrito = new Map();
+
+const money = new Intl.NumberFormat("es-CO",{style:"currency",currency:"USD"});
+
+const el = {
+  contProds: document.getElementById("productos"),
+  lista: document.getElementById("lista-carrito"),
+  cantidad: document.getElementById("cantidad-carrito"),
+  subtotal: document.getElementById("subtotal-text"),
+  descuento: document.getElementById("descuento-text"),
+  impuestos: document.getElementById("impuestos-text"),
+  total: document.getElementById("total-text"),
+  btnVaciar: document.getElementById("btn-vaciar"),
+  btnFinal: document.getElementById("btn-finalizar"),
+  paypal: document.getElementById("paypal-button-container")
+};
+
+/* ==============================
+   RENDER PRODUCTOS
+============================== */
+function renderProductos(){
+  el.contProds.innerHTML = "";
+  productos.forEach(p=>{
+    const card = document.createElement("div");
+    card.className="producto";
+    card.innerHTML = `
+      <img src="${p.img}" alt="${p.nombre}">
+      <h3>${p.nombre}</h3>
+      <p><strong>${money.format(p.precio)}</strong></p>
+      <button data-add="${p.id}">Agregar</button>
+    `;
+    el.contProds.appendChild(card);
+  });
+}
+
+/* ==============================
+   CARRITO
+============================== */
+function totales(){
+  const subtotal = [...carrito.values()]
+    .reduce((acc,p)=>acc + p.precio * p.cantidad, 0);
+  const descuento = 0;
+  const impuestos = 0;
+  const total = subtotal - descuento + impuestos;
+  const cantidad = [...carrito.values()]
+    .reduce((acc,p)=>acc + p.cantidad, 0);
+
+  return { subtotal, descuento, impuestos, total, cantidad };
+}
+
+function pintarCarrito(){
+  el.lista.innerHTML = "";
+
+  carrito.forEach(p=>{
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <span>${p.nombre} (${money.format(p.precio)})</span>
+
+      <div class="qty">
+        <button data-dec="${p.id}">-</button>
+        <span>${p.cantidad}</span>
+        <button data-inc="${p.id}">+</button>
+        <button class="remove" data-del="${p.id}">X</button>
+      </div>
+    `;
+    el.lista.appendChild(li);
+  });
+
+  const {subtotal,descuento,impuestos,total,cantidad} = totales();
+
+  el.subtotal.textContent = money.format(subtotal);
+  el.descuento.textContent = money.format(descuento);
+  el.impuestos.textContent = money.format(impuestos);
+  el.total.textContent = money.format(total);
+  el.cantidad.textContent = cantidad;
+
+  el.paypal.style.display = total > 0 ? "block" : "none";
+
+  renderPayPal(total);
+}
+
+function add(id){
+  const p = productos.find(x=>x.id===id);
+  if(!p) return;
+
+  const item = carrito.get(id);
+  if(item){ item.cantidad++; }
+  else{ carrito.set(id,{...p,cantidad:1}); }
+
+  persist();
+  pintarCarrito();
+}
+
+function dec(id){
+  const item = carrito.get(id);
+  if(!item) return;
+  item.cantidad--;
+  if(item.cantidad<=0) carrito.delete(id);
+  persist();
+  pintarCarrito();
+}
+
+function delItem(id){
+  carrito.delete(id);
+  persist();
+  pintarCarrito();
+}
+
+/* ==============================
+   LOCALSTORAGE
+============================== */
+function persist(){
+  localStorage.setItem("carrito",JSON.stringify([...carrito]));
+}
+
+function load(){
+  const data = localStorage.getItem("carrito");
+  if(data){
+    carrito = new Map(JSON.parse(data));
+  }
+}
+
+/* ==============================
+   PAYPAL
+============================== */
+let paypalRenderedTotal = null;
+
+function renderPayPal(total){
+  if(total <= 0){
+    paypalRenderedTotal = null;
+    el.paypal.innerHTML = "";
+    return;
+  }
+
+  if(paypalRenderedTotal === total) return;
+
+  paypalRenderedTotal = total;
+  el.paypal.innerHTML = "";
+
+  paypal.Buttons({
+    createOrder:(d,a)=>a.order.create({
+      purchase_units:[{amount:{value:total.toFixed(2) }}]
+    }),
+    onApprove:(d,a)=>a.order.capture().then(()=>{
+      alert("¡Gracias por tu compra!");
+      carrito.clear();
+      persist();
+      pintarCarrito();
+    })
+  }).render(el.paypal);
+}
+
+/* ==============================
+   EVENTOS
+============================== */
+document.addEventListener("click", e=>{
+  const addBtn = e.target.dataset.add;
+  const incBtn = e.target.dataset.inc;
+  const decBtn = e.target.dataset.dec;
+  const delBtn = e.target.dataset.del;
+
+  if(addBtn) add(+addBtn);
+  if(incBtn) add(+incBtn);
+  if(decBtn) dec(+decBtn);
+  if(delBtn) delItem(+delBtn);
+});
+
+el.btnVaciar.onclick = ()=>{
+  if(confirm("¿Vaciar carrito?")){
+    carrito.clear();
+    persist();
+    pintarCarrito();
+  }
+};
+
+el.btnFinal.onclick = ()=>{
+  if(carrito.size===0) return alert("Carrito vacío");
+  alert("Compra confirmada (simulada)");
+  carrito.clear();
+  persist();
+  pintarCarrito();
+};
+
+/* ==============================
+   INIT
+============================== */
+(function init(){
+  renderProductos();
+  load();
+  pintarCarrito();
+})();
+</script>
+
+</body>
+</html>
