@@ -1,427 +1,299 @@
-<link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
-<script type="module">
-	import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-
-	createChat({
-		webhookUrl: 'https://juanita.app.n8n.cloud/webhook/c662419a-3153-46ee-8132-3e944fab9b76/chat'
-	});
-</script>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Ecommerce Café – Juanita Sánchez</title>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Recorrido turístico por Bogotá: memoria, cultura y tradición con Caminantes Históricos.">
+  <meta name="theme-color" content="#12385b">
+  <title>Bogotá: entre memoria, cultura y tradición | Recorrido Turístico</title>
   <style>
     :root{
-      --morado:#6A0DAD;
-      --morado-oscuro:#4B0A7F;
-      --blanco:#ffffff;
-      --gris:#f4f4f4;
-      --gris2:#e6e6e6;
-      --texto:#222;
-      --ok:#28a745;
-      --warn:#dc3545;
-      --info:#007bff;
+      --navy:#12385b; --navy2:#0b2946; --gold:#f4c542; --cream:#fbf8f0;
+      --paper:#fff; --ink:#173653; --muted:#5d7184; --line:#dce4e9;
+      --green:#557f59; --shadow:0 12px 30px rgba(14,45,72,.10);
+      --radius:18px;
     }
-
-    *{box-sizing:border-box;}
-
-    body{
-      font-family:system-ui;
-      background:var(--gris);
-      color:var(--texto);
-      padding:20px;
-    }
-
-    h1{
-      text-align:center;
-      color:var(--morado);
-      margin-bottom:20px;
-    }
-
-    /* ====================== PRODUCTOS ====================== */
-    #productos{
-      display:grid;
-      grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-      gap:16px;
-      margin-top:20px;
-    }
-
-    .producto{
-      background:var(--blanco);
-      border:2px solid var(--morado-oscuro);
-      border-radius:10px;
-      padding:12px;
-      text-align:center;
-      box-shadow:0 3px 8px rgba(0,0,0,0.1);
-    }
-
-    .producto img{
-      width:100%;
-      height:160px;
-      object-fit:cover;
-      border-radius:6px;
-    }
-
-    .producto button{
-      background:var(--morado);
-      color:white;
-      border:none;
-      padding:8px 12px;
-      border-radius:6px;
-      margin-top:8px;
-      cursor:pointer;
-    }
-
-    /* ====================== CARRITO ====================== */
-    .carrito{
-      margin-top:40px;
-      background:var(--blanco);
-      padding:16px;
-      border-radius:10px;
-      border:2px solid var(--morado-oscuro);
-      max-width:480px;
-      margin-left:auto;
-      margin-right:auto;
-    }
-
-    #lista-carrito{list-style:none;padding:0;}
-
-    #lista-carrito li{
-      background:var(--gris2);
-      padding:10px;
-      border-radius:6px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      margin-bottom:8px;
-    }
-
-    .qty{
-      display:flex;
-      gap:4px;
-      align-items:center;
-    }
-
-    .qty button{
-      border:1px solid var(--morado);
-      background:var(--blanco);
-      cursor:pointer;
-      padding:4px 8px;
-      border-radius:4px;
-    }
-
-    .remove{
-      background:var(--warn);
-      border:none;
-      color:white;
-      padding:5px 8px;
-      border-radius:4px;
-    }
-
-    .vaciar{
-      background:var(--warn);
-      color:white;
-      border:none;
-      width:100%;
-      padding:10px;
-      border-radius:6px;
-      margin-top:10px;
-      cursor:pointer;
-    }
-
-    .finalizar{
-      background:var(--info);
-      color:white;
-      border:none;
-      width:100%;
-      padding:10px;
-      border-radius:6px;
-      margin-top:10px;
-      cursor:pointer;
-    }
-
-    .totales p{
-      margin:6px 0;
-    }
-
-    #paypal-button-container{
-      margin-top:10px;
-      display:none;
-    }
-
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:88px}
+    body{margin:0;background:var(--cream);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.65}
+    img{max-width:100%;display:block}
+    a{color:inherit}
+    .container{width:min(1160px,calc(100% - 36px));margin-inline:auto}
+    header{position:sticky;top:0;z-index:20;background:rgba(11,41,70,.97);color:#fff;box-shadow:0 4px 18px #071b2d24;backdrop-filter:blur(10px)}
+    .nav{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-family:Georgia,serif;font-size:1.1rem;font-style:italic;color:#ffe58a}
+    .brand-mark{font-size:1.8rem;font-style:normal}
+    nav{display:flex;gap:18px;flex-wrap:wrap}
+    nav a{font-size:.9rem;text-decoration:none;color:#f4f7fb;padding:8px 0;border-bottom:2px solid transparent}
+    nav a:hover,nav a:focus{border-color:var(--gold)}
+    .hero{color:white;min-height:420px;display:flex;align-items:center;background:linear-gradient(90deg,rgba(7,34,59,.92),rgba(7,34,59,.48)),url("https://images.unsplash.com/photo-1518638150340-f706e86654de?auto=format&fit=crop&w=2000&q=85") center 48%/cover}
+    .hero-content{padding:75px 0}
+    .eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:.78rem;font-weight:800;color:var(--gold)}
+    h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.16}
+    h1{font-size:clamp(2.5rem,6vw,4.8rem);max-width:850px;margin:12px 0}
+    .hero h2{font-family:inherit;color:var(--gold);font-size:clamp(1.3rem,3vw,2rem);font-weight:650;margin:0}
+    .gold-line{width:64px;height:4px;background:var(--gold);margin:22px 0}
+    section{padding:68px 0}
+    .section-heading{text-align:center;margin:0 auto 30px;max-width:760px}
+    .section-heading h2{font-size:clamp(1.8rem,4vw,2.6rem);margin:0 0 10px;color:var(--navy)}
+    .section-heading p{color:var(--muted);margin:0}
+    .intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start}
+    .intro-copy,.who-card{background:var(--paper);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
+    .intro-copy{font-size:1.08rem;border-left:5px solid var(--gold)}
+    .who-card h2{margin:0 0 14px;color:var(--navy);font-size:1.8rem}
+    .who-card p{margin:0 0 12px}
+    .soft{background:#f1eee5}
+    .timeline{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .stop{display:grid;grid-template-columns:130px 1fr;gap:16px;background:white;border:1px solid var(--line);border-radius:14px;padding:18px}
+    .time{font-weight:800;color:var(--navy);font-size:.94rem}
+    .stop h3{font-family:inherit;font-size:1rem;margin:0 0 5px;color:var(--navy)}
+    .stop p{margin:0;color:var(--muted);font-size:.93rem}
+    .attractions-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+    .attraction-card{overflow:hidden;border-radius:var(--radius);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);display:flex;flex-direction:column}
+    .attraction-card img{height:205px;width:100%;object-fit:cover;background:#d9e1e5}
+    .card-body{padding:20px;display:flex;flex-direction:column;align-items:flex-start;flex:1}
+    .tag{font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:#8a6500;font-weight:800}
+    .card-body h3{font-size:1.35rem;margin:8px 0 10px;color:var(--navy)}
+    .card-body p{margin:0 0 18px;color:var(--muted);font-size:.94rem}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--gold);color:var(--navy2);font-weight:800;text-decoration:none;border:0;border-radius:999px;padding:11px 18px;cursor:pointer;transition:transform .2s,filter .2s;font:inherit;font-weight:800}
+    .btn:hover{transform:translateY(-2px);filter:brightness(.97)}
+    .card-body .btn{margin-top:auto}
+    .detail{padding:42px 0;border-top:1px solid var(--line)}
+    .detail:nth-of-type(even){background:#fff}
+    .detail-grid{display:grid;grid-template-columns:minmax(0, .85fr) minmax(0,1.15fr);gap:34px;align-items:start}
+    .detail img{width:100%;height:350px;object-fit:cover;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .detail h2{font-size:clamp(1.7rem,3.5vw,2.35rem);color:var(--navy);margin:0 0 12px}
+    .detail h3{font-family:inherit;font-size:1.06rem;color:var(--navy);margin:20px 0 6px}
+    .detail p{margin:0 0 10px}
+    .detail ul{padding-left:22px;margin:7px 0 12px}
+    .fact{background:#fff6d6;border-left:4px solid var(--gold);padding:13px 16px;border-radius:8px;margin:16px 0}
+    .importance{font-weight:650}
+    .return-link{display:inline-block;margin-top:12px;color:var(--navy);font-weight:800;text-decoration:none}
+    .tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+    .panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+    .panel h3{margin:0 0 12px;font-size:1.35rem;color:var(--navy)}
+    .panel ul{padding-left:21px;margin:8px 0}
+    .callout{background:#fff4c9;border-radius:12px;padding:15px;margin-top:16px}
+    .packing{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
+    .pack-item{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+    .pack-item span{font-size:1.6rem;display:block;margin-bottom:4px}
+    .pack-item label{display:flex;gap:8px;align-items:flex-start;text-align:left;font-size:.9rem;cursor:pointer}
+    .pack-item input{margin-top:5px;accent-color:var(--green)}
+    .pack-progress{font-weight:750;color:var(--green);margin-top:12px}
+    .sustainability{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .sustain-card{background:white;border:1px solid var(--line);border-radius:14px;padding:20px}
+    .sustain-card h3{font-family:inherit;margin:0 0 8px;color:var(--navy);font-size:1.1rem}
+    .sustain-card p{margin:0}
+    .conclusion{background:var(--navy2);color:white}
+    .conclusion .section-heading h2{color:#fff}
+    .conclusion blockquote{max-width:900px;margin:18px auto;padding:0 24px;border-left:3px solid var(--gold);font-size:1.13rem}
+    .closing-quote{text-align:center;color:var(--gold);font-family:Georgia,serif;font-size:clamp(1.25rem,3vw,1.8rem);font-style:italic;font-weight:700;margin:28px 0 0}
+    footer{background:#071e33;color:#d6e0e8;padding:24px 0;text-align:center;font-size:.9rem}
+    .top-link{color:#ffe58a;text-decoration:none}
+    @media(max-width:900px){.attractions-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.intro-grid,.detail-grid{grid-template-columns:1fr}.detail img{height:300px}.timeline{grid-template-columns:1fr}}
+    @media(max-width:600px){.container{width:min(100% - 24px,1160px)}.nav{align-items:flex-start;flex-direction:column;padding:12px 0}.nav nav{gap:12px}.nav nav a{font-size:.82rem}.hero{min-height:370px}.hero-content{padding:52px 0}section{padding:48px 0}.attractions-grid,.tips-grid,.sustainability{grid-template-columns:1fr}.stop{grid-template-columns:1fr;gap:4px}.packing{grid-template-columns:repeat(2,minmax(0,1fr))}.detail img{height:230px}.intro-copy,.who-card,.panel{padding:21px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
   </style>
 </head>
-
 <body>
-  <h1>☕ Tienda de Café – Juanita Sánchez</h1>
+<header>
+  <div class="container nav">
+    <a class="brand" href="#inicio"><span class="brand-mark" aria-hidden="true">⌂</span><span>Bogotá<br><small>Entre memoria, cultura y tradición</small></span></a>
+    <nav aria-label="Navegación principal">
+      <a href="#inicio">Inicio</a><a href="#recorrido">El recorrido</a><a href="#atractivos">Atractivos</a><a href="#recomendaciones">Recomendaciones</a><a href="#sostenibilidad">Sostenibilidad</a>
+    </nav>
+  </div>
+</header>
 
-  <!-- ====================== PRODUCTOS ====================== -->
-  <section id="productos"></section>
-
-  <!-- ====================== CARRITO ====================== -->
-  <section class="carrito">
-    <h2>🛒 Carrito</h2>
-    <p><strong>Productos: <span id="cantidad-carrito">0</span></strong></p>
-
-    <ul id="lista-carrito"></ul>
-
-    <div class="totales">
-      <p>Subtotal: <strong id="subtotal-text">$0</strong></p>
-      <p>Descuento: <strong id="descuento-text">$0</strong></p>
-      <p>Impuestos: <strong id="impuestos-text">$0</strong></p>
-      <p>Total: <strong id="total-text">$0</strong></p>
+<main>
+  <section class="hero" id="inicio">
+    <div class="container hero-content">
+      <div class="eyebrow">Caminantes Históricos · Bogotá, Colombia</div>
+      <h1>Bogotá: entre memoria, cultura y tradición</h1>
+      <h2>Recorrido Turístico</h2>
+      <div class="gold-line"></div>
+      <p>Un viaje por las historias, expresiones culturales y memorias que dan identidad al centro histórico.</p>
+      <a class="btn" href="#recorrido">Conoce el recorrido <span aria-hidden="true">↓</span></a>
     </div>
-
-    <button id="btn-vaciar" class="vaciar">Vaciar Carrito</button>
-    <button id="btn-finalizar" class="finalizar">Finalizar Compra</button>
-
-    <div id="paypal-button-container"></div>
   </section>
 
-  <!-- PAYPAL -->
-  <script src="https://www.paypal.com/sdk/js?client-id=sb&currency=USD"></script>
-
-<script>
-/* ==============================
-   DATASET (TUS PRODUCTOS)
-============================== */
-const productos = [
-  {
-    id: 1,
-    nombre: "Café Latte",
-    precio: 9.00,
-    categoria:"Calientes",
-    img: "https://www.arte-latte.com/wp-content/uploads/2020/12/latte-scaled.jpg"
-  },
-  {
-    id: 2,
-    nombre: "Café Cappuccino",
-    precio: 9.00,
-    categoria:"Calientes",
-    img: "https://www.elglobo.com.mx/cdn/shop/products/cappuccino-2_1200x.jpg?v=1618806745"
-  },
-  {
-    id: 3,
-    nombre: "Café Americano",
-    precio: 7.00,
-    categoria:"Calientes",
-    img: "https://i.blogs.es/139e0f/cafe-americano2/840_560.jpeg"
-  },
-  {
-    id: 4,
-    nombre: "Café Affogato",
-    precio: 10.00,
-    categoria:"Fríos",
-    img: "https://www.micaelaskitchen.com/wp-content/uploads/2023/06/Affogato-al-caffe-3.jpg"
-  },
-  {
-    id: 5,
-    nombre: "Café Mocha",
-    precio: 9.00,
-    categoria:"Calientes",
-    img: "https://images.immediate.co.uk/production/volatile/sites/54/2025/06/050620251749106536.png?quality=90&resize=708,643"
-  }
-];
-
-/* ==============================
-   ESTADO
-============================== */
-let carrito = new Map();
-
-const money = new Intl.NumberFormat("es-CO",{style:"currency",currency:"USD"});
-
-const el = {
-  contProds: document.getElementById("productos"),
-  lista: document.getElementById("lista-carrito"),
-  cantidad: document.getElementById("cantidad-carrito"),
-  subtotal: document.getElementById("subtotal-text"),
-  descuento: document.getElementById("descuento-text"),
-  impuestos: document.getElementById("impuestos-text"),
-  total: document.getElementById("total-text"),
-  btnVaciar: document.getElementById("btn-vaciar"),
-  btnFinal: document.getElementById("btn-finalizar"),
-  paypal: document.getElementById("paypal-button-container")
-};
-
-/* ==============================
-   RENDER PRODUCTOS
-============================== */
-function renderProductos(){
-  el.contProds.innerHTML = "";
-  productos.forEach(p=>{
-    const card = document.createElement("div");
-    card.className="producto";
-    card.innerHTML = `
-      <img src="${p.img}" alt="${p.nombre}">
-      <h3>${p.nombre}</h3>
-      <p><strong>${money.format(p.precio)}</strong></p>
-      <button data-add="${p.id}">Agregar</button>
-    `;
-    el.contProds.appendChild(card);
-  });
-}
-
-/* ==============================
-   CARRITO
-============================== */
-function totales(){
-  const subtotal = [...carrito.values()]
-    .reduce((acc,p)=>acc + p.precio * p.cantidad, 0);
-  const descuento = 0;
-  const impuestos = 0;
-  const total = subtotal - descuento + impuestos;
-  const cantidad = [...carrito.values()]
-    .reduce((acc,p)=>acc + p.cantidad, 0);
-
-  return { subtotal, descuento, impuestos, total, cantidad };
-}
-
-function pintarCarrito(){
-  el.lista.innerHTML = "";
-
-  carrito.forEach(p=>{
-    const li = document.createElement("li");
-    li.innerHTML = `
-      <span>${p.nombre} (${money.format(p.precio)})</span>
-
-      <div class="qty">
-        <button data-dec="${p.id}">-</button>
-        <span>${p.cantidad}</span>
-        <button data-inc="${p.id}">+</button>
-        <button class="remove" data-del="${p.id}">X</button>
+  <section>
+    <div class="container intro-grid">
+      <div class="intro-copy">
+        El recorrido turístico se desarrollará en el centro histórico de Bogotá, principalmente en La Candelaria. A través de diferentes elementos patrimoniales, los visitantes podrán reconocer cómo la historia, las expresiones culturales, las tradiciones religiosas y la transformación urbana se relacionan para construir la identidad de la ciudad.
       </div>
-    `;
-    el.lista.appendChild(li);
+      <article class="who-card">
+        <div class="eyebrow">Nuestro equipo</div>
+        <h2>¿Quiénes Somos?</h2>
+        <p>Somos los Caminantes Históricos, un equipo de guías que invita a descubrir Bogotá a través de sus calles, monumentos, edificios y tradiciones. La palabra caminantes simboliza el recorrido y la experiencia de explorar la ciudad, mientras que históricos destaca la riqueza patrimonial y cultural que se encuentra en cada lugar visitado.</p>
+        <p>Como equipo, buscamos que los turistas no solo conozcan los sitios emblemáticos de Bogotá, sino que comprendan las historias, memorias y expresiones culturales que les dan significado. A través de un recorrido participativo, sostenible y creativo, queremos conectar el pasado con el presente y demostrar que cada paso por la ciudad es una oportunidad para aprender, valorar y preservar su patrimonio.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="soft" id="recorrido">
+    <div class="container">
+      <div class="section-heading"><div class="eyebrow">Plan del día</div><h2>Cronograma propuesto</h2><p>Un recorrido para descubrir distintas capas de la memoria bogotana.</p></div>
+      <div class="timeline">
+        <article class="stop"><div class="time">8:00 – 8:20 a. m.</div><div><h3>Plaza de Bolívar</h3><p>Bienvenida, presentación del equipo.</p></div></article>
+        <article class="stop"><div class="time">8:20 – 8:50 a. m.</div><div><h3>Monumento a Camilo Torres y Tenorio</h3><p>Interpretación histórica del monumento y actividad de observación.</p></div></article>
+        <article class="stop"><div class="time">8:50 – 9:40 a. m.</div><div><h3>Casa de Nariño</h3><p>Explicación de su importancia institucional y del cambio de guardia, si coincide con la programación oficial.</p></div></article>
+        <article class="stop"><div class="time">10:00 – 10:40 a. m.</div><div><h3>Casa FUGA</h3><p>Interpretación cultural, historia del inmueble y reflexión sobre el arte y la transformación urbana.</p></div></article>
+        <article class="stop"><div class="time">10:40 – 11:30 a. m.</div><div><h3>Centro Histórico – Contextualización de Monserrate</h3><p>Conexión narrativa con los Cerros Orientales y recomendaciones para la visita.</p></div></article>
+        <article class="stop"><div class="time">12:00 – 1:00 p. m.</div><div><h3>Almuerzo</h3><p>Pausa para alimentación, hidratación y descanso. Se recomienda consumir en un establecimiento local.</p></div></article>
+        <article class="stop"><div class="time">1:40 – 2:20 p. m.</div><div><h3>Calle del Embudo</h3><p>Caminata interpretativa, observación de murales y reflexión sobre la identidad barrial.</p></div></article>
+        <article class="stop"><div class="time">2:40 – 3:20 p. m.</div><div><h3>Edificio El Tiempo–Citytv</h3><p>Interpretación de su arquitectura y su relación histórica con los medios de comunicación.</p></div></article>
+        <article class="stop"><div class="time">3:20 – 3:50 p. m.</div><div><h3>Cierre del recorrido</h3><p>Actividad de reflexión, conclusiones, agradecimientos y fotografía grupal.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="atractivos">
+    <div class="container">
+      <div class="section-heading"><div class="eyebrow">Seis paradas, muchas historias</div><h2>Nuestros 6 atractivos turísticos</h2><p>Selecciona “Ver descripción” para conocer la historia, características e importancia de cada lugar.</p></div>
+      <div class="attractions-grid">
+        <article class="attraction-card"><img loading="lazy" src="https://images.unsplash.com/photo-1568632234157-ce7a889b8b3a?auto=format&fit=crop&w=900&q=80" alt="Monumento escultórico en una plaza histórica" onerror="this.src='https://placehold.co/900x600/e9e3d5/173653?text=Camilo+Torres'"><div class="card-body"><span class="tag">Memoria histórica</span><h3>Monumento a Camilo Torres y Tenorio</h3><p>Un homenaje a una figura vinculada al proceso de Independencia.</p><a class="btn" href="#camilo">Ver descripción →</a></div></article>
+        <article class="attraction-card"><img loading="lazy" src="https://images.unsplash.com/photo-1562835155-6e9c4f4f4f1b?auto=format&fit=crop&w=900&q=80" alt="Edificio institucional de arquitectura clásica" onerror="this.src='https://placehold.co/900x600/e9e3d5/173653?text=Casa+de+Nariño'"><div class="card-body"><span class="tag">Patrimonio institucional</span><h3>Casa de Nariño + Cambio de Guardia</h3><p>Historia presidencial y tradición ceremonial.</p><a class="btn" href="#narino">Ver descripción →</a></div></article>
+        <article class="attraction-card"><img loading="lazy" src="https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=900&q=80" alt="Casa histórica con patio interior" onerror="this.src='https://placehold.co/900x600/e9e3d5/173653?text=Casa+FUGA'"><div class="card-body"><span class="tag">Arte y patrimonio</span><h3>Casa FUGA</h3><p>Una casa histórica que hoy impulsa la cultura y las artes.</p><a class="btn" href="#fuga">Ver descripción →</a></div></article>
+        <article class="attraction-card"><img loading="lazy" src="https://images.unsplash.com/photo-1596402184320-417e7178b2cd?auto=format&fit=crop&w=900&q=80" alt="Santuario en una montaña sobre la ciudad" onerror="this.src='https://placehold.co/900x600/e9e3d5/173653?text=Monserrate'"><div class="card-body"><span class="tag">Tradición viva</span><h3>Peregrinación de Monserrate</h3><p>Fe, paisaje, tradición y encuentro en los Cerros Orientales.</p><a class="btn" href="#monserrate">Ver descripción →</a></div></article>
+        <article class="attraction-card"><img loading="lazy" src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=900&q=80" alt="Calle peatonal colorida con arte urbano" onerror="this.src='https://placehold.co/900x600/e9e3d5/173653?text=Calle+del+Embudo'"><div class="card-body"><span class="tag">Cultura barrial</span><h3>Calle del Embudo</h3><p>Una calle estrecha donde conviven arte, comercio y comunidad.</p><a class="btn" href="#embudo">Ver descripción →</a></div></article>
+        <article class="attraction-card"><img loading="lazy" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80" alt="Edificio de arquitectura moderna" onerror="this.src='https://placehold.co/900x600/e9e3d5/173653?text=Edificio+El+Tiempo'"><div class="card-body"><span class="tag">Arquitectura moderna</span><h3>Edificio El Tiempo – Citytv</h3><p>Arquitectura moderna y memoria de los medios de comunicación.</p><a class="btn" href="#eltiempo">Ver descripción →</a></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="detail" id="camilo"><div class="container detail-grid">
+    <img loading="lazy" src="https://images.unsplash.com/photo-1568632234157-ce7a889b8b3a?auto=format&fit=crop&w=1200&q=85" alt="Escultura en espacio público histórico" onerror="this.src='https://placehold.co/1200x800/e9e3d5/173653?text=Monumento+a+Camilo+Torres'">
+    <div><div class="eyebrow">Atractivo 01</div><h2>Monumento a Camilo Torres y Tenorio</h2>
+      <p><strong>📍 Ubicación:</strong> Calle 10 con Carrera 7 – Plazoleta del Colegio Mayor de San Bartolomé, La Candelaria.</p>
+      <p><strong>🏛️ Tipo:</strong> Patrimonio cultural material – Monumento en espacio público.</p>
+      <h3>📖 Historia</h3><p>Camilo Torres y Tenorio (1766–1816) fue abogado, político y uno de los personajes relacionados con el proceso de Independencia de Colombia. Es recordado especialmente por el <strong>Memorial de Agravios de 1809</strong>, documento en el que expresó la inconformidad de los criollos por la desigualdad en la representación política frente a los españoles.</p>
+      <p>La escultura ubicada en Bogotá fue inaugurada el <strong>20 de julio de 1960</strong>, durante las conmemoraciones del sesquicentenario de la Independencia. Es una reproducción de la obra realizada originalmente por Charles Raoul Verlet en Popayán; la versión bogotana fue ejecutada por <strong>Gerardo Benítez</strong>.</p>
+      <h3>👀 ¿Qué podemos observar?</h3><ul><li>Camilo Torres aparece representado como abogado.</li><li>Sostiene un documento relacionado con el Memorial de Agravios.</li><li>Se encuentra en la plazoleta del Colegio Mayor de San Bartolomé.</li><li>Su ubicación lo relaciona con el centro histórico y edificios políticos de la ciudad.</li></ul>
+      <div class="fact"><strong>💡 Dato curioso:</strong> El monumento bogotano es una reproducción de la escultura original de Popayán, creada por Charles Raoul Verlet.</div>
+      <p class="importance">⭐ Importancia turística: permite conocer un personaje fundamental de la Independencia y comprender cómo el espacio público puede convertirse en un lugar para conservar la memoria histórica.</p>
+      <a class="return-link" href="#atractivos">↑ Volver a los atractivos</a>
+    </div></div></section>
+
+  <section class="detail" id="narino"><div class="container detail-grid">
+    <img loading="lazy" src="https://images.unsplash.com/photo-1562835155-6e9c4f4f4f1b?auto=format&fit=crop&w=1200&q=85" alt="Fachada de edificio institucional" onerror="this.src='https://placehold.co/1200x800/e9e3d5/173653?text=Casa+de+Nariño'">
+    <div><div class="eyebrow">Atractivo 02</div><h2>Casa de Nariño + Cambio de Guardia</h2>
+      <p><strong>📍 Ubicación:</strong> Carrera 8 #7-26, La Candelaria.</p><p><strong>🏛️ Tipo:</strong> Patrimonio cultural + manifestación ceremonial.</p>
+      <h3>📖 Historia</h3><p>La Casa de Nariño es actualmente la <strong>sede de la Presidencia de la República de Colombia</strong>. El lugar está relacionado con Antonio Nariño, prócer de la Independencia, quien nació y creció en esta casa. La Presidencia destaca la relación histórica entre la vivienda y el personaje que posteriormente le dio su nombre.</p>
+      <h3>🎖️ Cambio de Guardia</h3><p>El Cambio de Guardia Presidencial es una ceremonia realizada por el Batallón de Guardia Presidencial. Representa disciplina, tradición militar, ceremonial institucional, protección de la sede presidencial y patrimonio cultural vivo.</p>
+      <p>Según la información suministrada para este recorrido, puede observarse durante visitas de miércoles, viernes y domingo a las 2:00 p. m. y 3:00 p. m.; verifica la programación oficial antes de asistir.</p>
+      <h3>👀 ¿Qué podemos observar?</h3><ul><li>La fachada de la sede presidencial.</li><li>Los espacios históricos de la Casa de Nariño.</li><li>Elementos ceremoniales relacionados con la Presidencia.</li><li>El Cambio de Guardia, cuando corresponde al horario de visita.</li></ul>
+      <div class="fact"><strong>💡 Dato curioso:</strong> La Casa de Nariño ofrece visitas guiadas gratuitas para colombianos y extranjeros, con duración aproximada de 45 minutos y mediante registro previo. Confirma condiciones y disponibilidad oficiales.</div>
+      <p class="importance">⭐ Importancia turística: es uno de los espacios que permite acercarse a la historia política e institucional de Colombia.</p><a class="return-link" href="#atractivos">↑ Volver a los atractivos</a>
+    </div></div></section>
+
+  <section class="detail" id="fuga"><div class="container detail-grid">
+    <img loading="lazy" src="https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=1200&q=85" alt="Patio de una casa histórica" onerror="this.src='https://placehold.co/1200x800/e9e3d5/173653?text=Casa+FUGA'">
+    <div><div class="eyebrow">Atractivo 03</div><h2>Casa FUGA</h2>
+      <p><strong>📍 Ubicación:</strong> Calle 10 #3-16, La Candelaria.</p><p><strong>🏛️ Tipo:</strong> Patrimonio cultural material + espacio cultural.</p>
+      <h3>📖 Historia</h3><p>La <strong>Fundación Gilberto Alzate Avendaño (FUGA)</strong> tiene su sede en una casa histórica del centro de Bogotá. El inmueble estuvo relacionado con personajes del periodo colonial, entre ellos los virreyes José de Ezpeleta y Juan Sámano.</p>
+      <p>Actualmente, la FUGA es un espacio dedicado al desarrollo y promoción de actividades culturales y artísticas en el centro de Bogotá.</p>
+      <h3>🎨 ¿Qué encontramos?</h3><ul><li>Exposiciones y artes visuales.</li><li>Música y actividades culturales.</li><li>Programación artística.</li><li>Procesos relacionados con patrimonio y territorio.</li></ul>
+      <div class="fact"><strong>💡 Dato curioso:</strong> La FUGA combina dos elementos que parecen muy diferentes: una construcción histórica y actividades culturales contemporáneas.</div>
+      <p class="importance">⭐ Importancia turística: representa cómo el patrimonio puede adaptarse a nuevos usos sin perder su relación con la historia.</p><a class="return-link" href="#atractivos">↑ Volver a los atractivos</a>
+    </div></div></section>
+
+  <section class="detail" id="monserrate"><div class="container detail-grid">
+    <img loading="lazy" src="https://images.unsplash.com/photo-1596402184320-417e7178b2cd?auto=format&fit=crop&w=1200&q=85" alt="Santuario y paisaje de montaña" onerror="this.src='https://placehold.co/1200x800/e9e3d5/173653?text=Monserrate'">
+    <div><div class="eyebrow">Atractivo 04</div><h2>Peregrinación de Monserrate</h2>
+      <p><strong>🏛️ Tipo:</strong> Patrimonio cultural inmaterial – Celebraciones y rituales.</p>
+      <h3>📖 Historia</h3><p>Monserrate es uno de los lugares más representativos de Bogotá y un tradicional sitio de peregrinación. En <strong>1640</strong> se construyó una primera ermita dedicada a la Virgen de Montserrat. En <strong>1656</strong> llegó la imagen del Señor Caído, que posteriormente se convirtió en el centro de la devoción del santuario.</p>
+      <h3>🙏 La peregrinación</h3><p>La peregrinación combina fe, religión, promesas, tradición, turismo, naturaleza, ejercicio, gastronomía y comercio. Monserrate puede ser simultáneamente un lugar religioso, turístico, paisajístico y cultural.</p>
+      <h3>💡 Datos curiosos</h3><ul><li><strong>1640:</strong> primera ermita.</li><li><strong>1656:</strong> llegada del Señor Caído.</li><li><strong>1929:</strong> inauguración del funicular.</li><li><strong>1955:</strong> inauguración del teleférico.</li></ul><p>El sendero peatonal cuenta con 1.605 escalones y aproximadamente 2.350 metros de extensión.</p>
+      <h3>👀 ¿Qué podemos observar?</h3><ul><li>El Santuario del Señor Caído.</li><li>Los Cerros Orientales y el paisaje de Bogotá.</li><li>Peregrinos y visitantes.</li><li>Diferentes formas de acceso al cerro.</li></ul>
+      <p class="importance">⭐ Importancia turística: Monserrate representa la unión entre fe, tradición, naturaleza y turismo, convirtiéndose en uno de los símbolos más reconocibles de Bogotá.</p><a class="return-link" href="#atractivos">↑ Volver a los atractivos</a>
+    </div></div></section>
+
+  <section class="detail" id="embudo"><div class="container detail-grid">
+    <img loading="lazy" src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1200&q=85" alt="Calle urbana de arquitectura tradicional" onerror="this.src='https://placehold.co/1200x800/e9e3d5/173653?text=Calle+del+Embudo'">
+    <div><div class="eyebrow">Atractivo 05</div><h2>Calle del Embudo</h2>
+      <p><strong>📍 Ubicación:</strong> Carrera 2 entre calles 12B y 12C, La Candelaria.</p><p><strong>🏛️ Tipo:</strong> Patrimonio cultural material – Espacio urbano histórico.</p>
+      <h3>📖 Historia y características</h3><p>La Calle del Embudo es una de las vías peatonales más características de La Candelaria. Su nombre se relaciona con su forma estrecha, que recuerda a la figura de un embudo.</p>
+      <p>Es una calle vinculada al entorno del Chorro de Quevedo y se caracteriza por sus construcciones tradicionales, actividades comerciales, gastronomía, artesanías y expresiones artísticas.</p>
+      <h3>🎨 ¿Qué encontramos?</h3><ul><li>Arquitectura tradicional y arte urbano.</li><li>Artesanías y gastronomía.</li><li>Cafés, comercio y actividades turísticas.</li></ul>
+      <div class="fact"><strong>💡 Dato curioso:</strong> Su importancia no está solamente en una construcción específica: la propia calle funciona como atractivo turístico. Esto demuestra que el patrimonio también está en los espacios públicos y en la forma en que la comunidad los utiliza.</div>
+      <p class="importance">⭐ Importancia turística: la Calle del Embudo representa la relación entre patrimonio, comunidad, cultura y turismo.</p><a class="return-link" href="#atractivos">↑ Volver a los atractivos</a>
+    </div></div></section>
+
+  <section class="detail" id="eltiempo"><div class="container detail-grid">
+    <img loading="lazy" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=85" alt="Edificio de arquitectura moderna" onerror="this.src='https://placehold.co/1200x800/e9e3d5/173653?text=Edificio+El+Tiempo'">
+    <div><div class="eyebrow">Atractivo 06</div><h2>Edificio El Tiempo – Citytv</h2>
+      <p><strong>📍 Ubicación:</strong> Avenida Jiménez #6-93, Carrera 7.ª.</p><p><strong>🏛️ Tipo:</strong> Patrimonio cultural material – Arquitectura moderna.</p>
+      <h3>📖 Historia</h3><p>El edificio fue diseñado por el arquitecto <strong>Bruno Violi</strong> y construido entre <strong>1958 y 1960</strong>. Fue construido para albergar las oficinas y talleres del periódico El Tiempo y fue inaugurado en 1961, con motivo de los 50 años de la fundación del periódico.</p>
+      <p>El periódico permaneció allí hasta 1978, cuando se trasladó a una nueva sede. El edificio posteriormente quedó asociado con Citytv.</p>
+      <h3>🏗️ Arquitectura</h3><ul><li>Planta en forma de L.</li><li>Fachada dividida en tres cuerpos.</li><li>Elementos de piedra.</li><li>Modulación horizontal y vertical, característica de la arquitectura moderna.</li></ul>
+      <p>Está declarado <strong>Bien de Interés Cultural del ámbito distrital</strong> mediante el Decreto 678 de 1994.</p>
+      <div class="fact"><strong>💡 Dato curioso:</strong> El edificio fue concebido originalmente para una actividad relacionada con la producción de información, no como edificio residencial o comercial. Sus espacios estaban pensados para oficinas y talleres de un periódico.</div>
+      <p class="importance">⭐ Importancia turística: permite observar la transformación arquitectónica de Bogotá durante el siglo XX y comprender la importancia de los medios de comunicación en la historia urbana.</p><a class="return-link" href="#atractivos">↑ Volver a los atractivos</a>
+    </div></div></section>
+
+  <section class="soft" id="recomendaciones">
+    <div class="container">
+      <div class="section-heading"><div class="eyebrow">Prepárate para caminar</div><h2>Condiciones y recomendaciones</h2><p>El clima puede cambiar durante el día; planea tu vestuario para estar cómodo en cada parada.</p></div>
+      <div class="tips-grid">
+        <article class="panel"><h3>🌦️ Condiciones climáticas</h3><ul><li>Temperatura fresca durante la mañana y al final de la tarde.</li><li>Posibilidad de lluvias, especialmente en el segundo periodo lluvioso del año.</li><li>Cambios rápidos entre momentos soleados y nublados.</li><li>Mayor exposición al viento y al frío durante la visita a Monserrate.</li></ul><div class="callout">💡 Para disfrutar el recorrido cómodamente, se recomienda utilizar ropa adecuada para caminar durante varias horas y que permita adaptarse a los cambios de temperatura.</div></article>
+        <article class="panel"><h3>🧥 Prendas y accesorios</h3><ul><li><strong>Camiseta:</strong> cómoda, preferiblemente transpirable.</li><li><strong>Chaqueta:</strong> abrigada, ligera e impermeable.</li><li><strong>Pantalón:</strong> cómodo, que facilite caminar y subir escaleras.</li><li><strong>Calzado:</strong> tenis o zapatos cerrados con buena suela antideslizante.</li><li><strong>Accesorios:</strong> gorra, gafas de sol y bloqueador solar.</li><li><strong>Mochila:</strong> pequeña, liviana y cómoda para llevar objetos personales.</li></ul><div class="callout">⚠️ Evita tacones, zapatos nuevos que puedan causar ampollas, prendas demasiado pesadas o accesorios que dificulten la movilidad. En Monserrate, el calzado cómodo es especialmente importante.</div></article>
+      </div>
+      <div class="panel" style="margin-top:24px">
+        <h3>🎒 Elementos que debe llevar cada turista</h3>
+        <p>Marca los elementos que ya tienes listos para el recorrido:</p>
+        <div class="packing" id="packing-list">
+          <div class="pack-item"><label><input type="checkbox"><span>💧</span>Botella de agua reutilizable</label></div>
+          <div class="pack-item"><label><input type="checkbox"><span>🌂</span>Chaqueta impermeable o paraguas compacto</label></div>
+          <div class="pack-item"><label><input type="checkbox"><span>☀️</span>Bloqueador solar</label></div>
+          <div class="pack-item"><label><input type="checkbox"><span>🪪</span>Documento de identidad</label></div>
+          <div class="pack-item"><label><input type="checkbox"><span>👟</span>Calzado cómodo</label></div>
+          <div class="pack-item"><label><input type="checkbox"><span>🎒</span>Mochila pequeña</label></div>
+          <div class="pack-item"><label><input type="checkbox"><span>💳</span>Dinero o medio de pago para gastos personales</label></div>
+          <div class="pack-item"><label><input type="checkbox"><span>🩹</span>Medicamentos personales, si los requiere</label></div>
+        </div>
+        <div class="pack-progress" id="pack-progress" aria-live="polite">0 de 8 elementos listos</div>
+        <button class="btn" id="reset-list" type="button" style="margin-top:10px">Reiniciar lista</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="sostenibilidad">
+    <div class="container">
+      <div class="section-heading"><div class="eyebrow">Viajar con responsabilidad</div><h2>Turismo sostenible</h2><p>El recorrido promoverá prácticas de turismo sostenible que permitan disfrutar del patrimonio sin deteriorarlo, respetando a las comunidades locales y reduciendo los impactos ambientales.</p></div>
+      <div class="sustainability">
+        <article class="sustain-card"><h3>🌱 Sostenibilidad ambiental</h3><ul><li>Llevar botella reutilizable y evitar plásticos de un solo uso.</li><li>No arrojar basura; guardar los residuos hasta encontrar un lugar adecuado para disponerlos.</li><li>Caminar entre estaciones cercanas para reducir el uso innecesario de vehículos.</li><li>No extraer plantas, alterar la fauna ni salirse de los senderos autorizados en Monserrate.</li></ul></article>
+        <article class="sustain-card"><h3>🤝 Sostenibilidad sociocultural</h3><ul><li>Respetar las creencias y expresiones religiosas de visitantes y habitantes.</li><li>Solicitar autorización antes de fotografiar a personas.</li><li>Cuidar monumentos, fachadas y espacios patrimoniales.</li><li>Mantener un comportamiento respetuoso en lugares institucionales y religiosos.</li></ul></article>
+        <article class="sustain-card"><h3>🛍️ Sostenibilidad económica</h3><ul><li>Promover el consumo en establecimientos y emprendimientos locales.</li><li>Valorar las artesanías y productos culturales de la zona.</li><li>Evitar el regateo irrespetuoso y reconocer el trabajo de los comerciantes.</li></ul></article>
+        <article class="sustain-card"><h3>🧭 Bienestar y seguridad</h3><ul><li>Mantenerse junto al grupo y seguir las indicaciones de los guías.</li><li>Hidratarse y realizar pausas cuando sea necesario.</li><li>Respetar las capacidades físicas de cada participante.</li><li>En Monserrate, seguir las indicaciones del personal y permanecer en los caminos autorizados.</li></ul></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="conclusion" id="conclusion">
+    <div class="container">
+      <div class="section-heading"><div class="eyebrow">Una ciudad, muchas memorias</div><h2>¿Qué nos deja este recorrido?</h2></div>
+      <blockquote>Bogotá no es solamente una ciudad con edificios históricos. Es una ciudad construida a través de <strong>personas, acontecimientos, tradiciones, expresiones artísticas, arquitectura y formas de vivir el espacio.</strong></blockquote>
+      <blockquote>Cada atractivo representa una parte diferente de la ciudad, pero todos juntos permiten comprender cómo Bogotá <strong>conserva su memoria mientras continúa transformándose.</strong></blockquote>
+      <p class="closing-quote">“Conocer nuestro patrimonio es también conocer quiénes somos.”</p>
+    </div>
+  </section>
+</main>
+<footer><div class="container">© <span id="year"></span> Caminantes Históricos · Bogotá: entre memoria, cultura y tradición · <a class="top-link" href="#inicio">Volver al inicio ↑</a></div></footer>
+<script>
+  // Lista interactiva de equipaje: permite marcar y reiniciar los elementos.
+  const checks = [...document.querySelectorAll('#packing-list input[type="checkbox"]')];
+  const progress = document.getElementById('pack-progress');
+  function updateProgress(){
+    const ready = checks.filter(check => check.checked).length;
+    progress.textContent = `${ready} de ${checks.length} elementos listos`;
+  }
+  checks.forEach(check => check.addEventListener('change', updateProgress));
+  document.getElementById('reset-list').addEventListener('click', () => {
+    checks.forEach(check => check.checked = false);
+    updateProgress();
   });
-
-  const {subtotal,descuento,impuestos,total,cantidad} = totales();
-
-  el.subtotal.textContent = money.format(subtotal);
-  el.descuento.textContent = money.format(descuento);
-  el.impuestos.textContent = money.format(impuestos);
-  el.total.textContent = money.format(total);
-  el.cantidad.textContent = cantidad;
-
-  el.paypal.style.display = total > 0 ? "block" : "none";
-
-  renderPayPal(total);
-}
-
-function add(id){
-  const p = productos.find(x=>x.id===id);
-  if(!p) return;
-
-  const item = carrito.get(id);
-  if(item){ item.cantidad++; }
-  else{ carrito.set(id,{...p,cantidad:1}); }
-
-  persist();
-  pintarCarrito();
-}
-
-function dec(id){
-  const item = carrito.get(id);
-  if(!item) return;
-  item.cantidad--;
-  if(item.cantidad<=0) carrito.delete(id);
-  persist();
-  pintarCarrito();
-}
-
-function delItem(id){
-  carrito.delete(id);
-  persist();
-  pintarCarrito();
-}
-
-/* ==============================
-   LOCALSTORAGE
-============================== */
-function persist(){
-  localStorage.setItem("carrito",JSON.stringify([...carrito]));
-}
-
-function load(){
-  const data = localStorage.getItem("carrito");
-  if(data){
-    carrito = new Map(JSON.parse(data));
-  }
-}
-
-/* ==============================
-   PAYPAL
-============================== */
-let paypalRenderedTotal = null;
-
-function renderPayPal(total){
-  if(total <= 0){
-    paypalRenderedTotal = null;
-    el.paypal.innerHTML = "";
-    return;
-  }
-
-  if(paypalRenderedTotal === total) return;
-
-  paypalRenderedTotal = total;
-  el.paypal.innerHTML = "";
-
-  paypal.Buttons({
-    createOrder:(d,a)=>a.order.create({
-      purchase_units:[{amount:{value:total.toFixed(2) }}]
-    }),
-    onApprove:(d,a)=>a.order.capture().then(()=>{
-      alert("¡Gracias por tu compra!");
-      carrito.clear();
-      persist();
-      pintarCarrito();
-    })
-  }).render(el.paypal);
-}
-
-/* ==============================
-   EVENTOS
-============================== */
-document.addEventListener("click", e=>{
-  const addBtn = e.target.dataset.add;
-  const incBtn = e.target.dataset.inc;
-  const decBtn = e.target.dataset.dec;
-  const delBtn = e.target.dataset.del;
-
-  if(addBtn) add(+addBtn);
-  if(incBtn) add(+incBtn);
-  if(decBtn) dec(+decBtn);
-  if(delBtn) delItem(+delBtn);
-});
-
-el.btnVaciar.onclick = ()=>{
-  if(confirm("¿Vaciar carrito?")){
-    carrito.clear();
-    persist();
-    pintarCarrito();
-  }
-};
-
-el.btnFinal.onclick = ()=>{
-  if(carrito.size===0) return alert("Carrito vacío");
-  alert("Compra confirmada (simulada)");
-  carrito.clear();
-  persist();
-  pintarCarrito();
-};
-
-/* ==============================
-   INIT
-============================== */
-(function init(){
-  renderProductos();
-  load();
-  pintarCarrito();
-})();
+  document.getElementById('year').textContent = new Date().getFullYear();
 </script>
-
 </body>
 </html>
