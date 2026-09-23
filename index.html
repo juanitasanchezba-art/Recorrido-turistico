@@ -1,299 +1,170 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Recorrido turístico por Bogotá: memoria, cultura y tradición con Caminantes Históricos.">
-  <meta name="theme-color" content="#12385b">
-  <title>Bogotá: entre memoria, cultura y tradición | Recorrido Turístico</title>
-  <style>
-    :root{
-      --navy:#12385b; --navy2:#0b2946; --gold:#f4c542; --cream:#fbf8f0;
-      --paper:#fff; --ink:#173653; --muted:#5d7184; --line:#dce4e9;
-      --green:#557f59; --shadow:0 12px 30px rgba(14,45,72,.10);
-      --radius:18px;
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth;scroll-padding-top:88px}
-    body{margin:0;background:var(--cream);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.65}
-    img{max-width:100%;display:block}
-    a{color:inherit}
-    .container{width:min(1160px,calc(100% - 36px));margin-inline:auto}
-    header{position:sticky;top:0;z-index:20;background:rgba(11,41,70,.97);color:#fff;box-shadow:0 4px 18px #071b2d24;backdrop-filter:blur(10px)}
-    .nav{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;font-family:Georgia,serif;font-size:1.1rem;font-style:italic;color:#ffe58a}
-    .brand-mark{font-size:1.8rem;font-style:normal}
-    nav{display:flex;gap:18px;flex-wrap:wrap}
-    nav a{font-size:.9rem;text-decoration:none;color:#f4f7fb;padding:8px 0;border-bottom:2px solid transparent}
-    nav a:hover,nav a:focus{border-color:var(--gold)}
-    .hero{color:white;min-height:420px;display:flex;align-items:center;background:linear-gradient(90deg,rgba(7,34,59,.92),rgba(7,34,59,.48)),url("https://images.unsplash.com/photo-1518638150340-f706e86654de?auto=format&fit=crop&w=2000&q=85") center 48%/cover}
-    .hero-content{padding:75px 0}
-    .eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:.78rem;font-weight:800;color:var(--gold)}
-    h1,h2,h3{font-family:Georgia,"Times New Roman",serif;line-height:1.16}
-    h1{font-size:clamp(2.5rem,6vw,4.8rem);max-width:850px;margin:12px 0}
-    .hero h2{font-family:inherit;color:var(--gold);font-size:clamp(1.3rem,3vw,2rem);font-weight:650;margin:0}
-    .gold-line{width:64px;height:4px;background:var(--gold);margin:22px 0}
-    section{padding:68px 0}
-    .section-heading{text-align:center;margin:0 auto 30px;max-width:760px}
-    .section-heading h2{font-size:clamp(1.8rem,4vw,2.6rem);margin:0 0 10px;color:var(--navy)}
-    .section-heading p{color:var(--muted);margin:0}
-    .intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:start}
-    .intro-copy,.who-card{background:var(--paper);border-radius:var(--radius);padding:28px;box-shadow:var(--shadow)}
-    .intro-copy{font-size:1.08rem;border-left:5px solid var(--gold)}
-    .who-card h2{margin:0 0 14px;color:var(--navy);font-size:1.8rem}
-    .who-card p{margin:0 0 12px}
-    .soft{background:#f1eee5}
-    .timeline{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-    .stop{display:grid;grid-template-columns:130px 1fr;gap:16px;background:white;border:1px solid var(--line);border-radius:14px;padding:18px}
-    .time{font-weight:800;color:var(--navy);font-size:.94rem}
-    .stop h3{font-family:inherit;font-size:1rem;margin:0 0 5px;color:var(--navy)}
-    .stop p{margin:0;color:var(--muted);font-size:.93rem}
-    .attractions-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
-    .attraction-card{overflow:hidden;border-radius:var(--radius);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);display:flex;flex-direction:column}
-    .attraction-card img{height:205px;width:100%;object-fit:cover;background:#d9e1e5}
-    .card-body{padding:20px;display:flex;flex-direction:column;align-items:flex-start;flex:1}
-    .tag{font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;color:#8a6500;font-weight:800}
-    .card-body h3{font-size:1.35rem;margin:8px 0 10px;color:var(--navy)}
-    .card-body p{margin:0 0 18px;color:var(--muted);font-size:.94rem}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--gold);color:var(--navy2);font-weight:800;text-decoration:none;border:0;border-radius:999px;padding:11px 18px;cursor:pointer;transition:transform .2s,filter .2s;font:inherit;font-weight:800}
-    .btn:hover{transform:translateY(-2px);filter:brightness(.97)}
-    .card-body .btn{margin-top:auto}
-    .detail{padding:42px 0;border-top:1px solid var(--line)}
-    .detail:nth-of-type(even){background:#fff}
-    .detail-grid{display:grid;grid-template-columns:minmax(0, .85fr) minmax(0,1.15fr);gap:34px;align-items:start}
-    .detail img{width:100%;height:350px;object-fit:cover;border-radius:var(--radius);box-shadow:var(--shadow)}
-    .detail h2{font-size:clamp(1.7rem,3.5vw,2.35rem);color:var(--navy);margin:0 0 12px}
-    .detail h3{font-family:inherit;font-size:1.06rem;color:var(--navy);margin:20px 0 6px}
-    .detail p{margin:0 0 10px}
-    .detail ul{padding-left:22px;margin:7px 0 12px}
-    .fact{background:#fff6d6;border-left:4px solid var(--gold);padding:13px 16px;border-radius:8px;margin:16px 0}
-    .importance{font-weight:650}
-    .return-link{display:inline-block;margin-top:12px;color:var(--navy);font-weight:800;text-decoration:none}
-    .tips-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-    .panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
-    .panel h3{margin:0 0 12px;font-size:1.35rem;color:var(--navy)}
-    .panel ul{padding-left:21px;margin:8px 0}
-    .callout{background:#fff4c9;border-radius:12px;padding:15px;margin-top:16px}
-    .packing{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
-    .pack-item{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
-    .pack-item span{font-size:1.6rem;display:block;margin-bottom:4px}
-    .pack-item label{display:flex;gap:8px;align-items:flex-start;text-align:left;font-size:.9rem;cursor:pointer}
-    .pack-item input{margin-top:5px;accent-color:var(--green)}
-    .pack-progress{font-weight:750;color:var(--green);margin-top:12px}
-    .sustainability{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-    .sustain-card{background:white;border:1px solid var(--line);border-radius:14px;padding:20px}
-    .sustain-card h3{font-family:inherit;margin:0 0 8px;color:var(--navy);font-size:1.1rem}
-    .sustain-card p{margin:0}
-    .conclusion{background:var(--navy2);color:white}
-    .conclusion .section-heading h2{color:#fff}
-    .conclusion blockquote{max-width:900px;margin:18px auto;padding:0 24px;border-left:3px solid var(--gold);font-size:1.13rem}
-    .closing-quote{text-align:center;color:var(--gold);font-family:Georgia,serif;font-size:clamp(1.25rem,3vw,1.8rem);font-style:italic;font-weight:700;margin:28px 0 0}
-    footer{background:#071e33;color:#d6e0e8;padding:24px 0;text-align:center;font-size:.9rem}
-    .top-link{color:#ffe58a;text-decoration:none}
-    @media(max-width:900px){.attractions-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.intro-grid,.detail-grid{grid-template-columns:1fr}.detail img{height:300px}.timeline{grid-template-columns:1fr}}
-    @media(max-width:600px){.container{width:min(100% - 24px,1160px)}.nav{align-items:flex-start;flex-direction:column;padding:12px 0}.nav nav{gap:12px}.nav nav a{font-size:.82rem}.hero{min-height:370px}.hero-content{padding:52px 0}section{padding:48px 0}.attractions-grid,.tips-grid,.sustainability{grid-template-columns:1fr}.stop{grid-template-columns:1fr;gap:4px}.packing{grid-template-columns:repeat(2,minmax(0,1fr))}.detail img{height:230px}.intro-copy,.who-card,.panel{padding:21px}}
-    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}}
-  </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Recorrido turístico por La Candelaria, Bogotá, con Caminantes Históricos.">
+<title>Bogotá: entre memoria, cultura y tradición</title>
+<style>
+:root{--azul:#12385b;--azul2:#092945;--dorado:#f4c542;--crema:#fbf8f0;--tinta:#173653;--muted:#607487;--line:#dce4e9}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0;background:var(--crema);color:var(--tinta);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Arial,sans-serif}img{display:block;max-width:100%}.container{width:min(1160px,calc(100% - 32px));margin:auto}
+header{position:sticky;top:0;z-index:10;background:var(--azul2);color:#fff;box-shadow:0 3px 15px #0002}.nav{min-height:70px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{font:italic 1.15rem Georgia,serif;color:#ffe58a;text-decoration:none}.brand small{display:block;font:normal .72rem system-ui;color:#fff}nav{display:flex;gap:16px;flex-wrap:wrap}nav a{color:#fff;text-decoration:none;font-size:.9rem;border-bottom:2px solid transparent}nav a:hover{border-color:var(--dorado)}
+.hero{min-height:420px;display:flex;align-items:center;color:white;background:linear-gradient(90deg,#092945ed,#0929455c),url("https://images.unsplash.com/photo-1518638150340-f706e86654de?auto=format&fit=crop&w=2000&q=85") center/cover}.hero-content{padding:70px 0}.eyebrow{color:#b88b00;text-transform:uppercase;letter-spacing:.15em;font-weight:800;font-size:.76rem}.hero .eyebrow{color:var(--dorado)}h1,h2{font-family:Georgia,"Times New Roman",serif;line-height:1.15}h1{font-size:clamp(2.5rem,6vw,4.6rem);max-width:900px;margin:12px 0} .hero h2{color:var(--dorado);font:700 clamp(1.4rem,3vw,2rem) system-ui;margin:0}.gold-line{width:65px;height:4px;background:var(--dorado);margin:22px 0}
+section{padding:64px 0}.soft{background:#f0ede4}.heading{text-align:center;max-width:760px;margin:0 auto 30px}.heading h2{font-size:clamp(1.8rem,4vw,2.6rem);color:var(--azul);margin:0 0 10px}.heading p{color:var(--muted);margin:0}.intro{display:grid;grid-template-columns:1fr 1fr;gap:28px}.intro>div,.intro article,.panel{background:white;padding:26px;border-radius:16px;border:1px solid var(--line);box-shadow:0 10px 25px #12385b0c}.intro>div{border-left:5px solid var(--dorado);font-size:1.05rem}.intro h2{margin:0 0 12px;color:var(--azul)}.intro p{margin:0 0 12px}
+.timeline{display:grid;grid-template-columns:1fr 1fr;gap:12px}.stop{display:grid;grid-template-columns:130px 1fr;gap:14px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px}.time{font-weight:800;color:var(--azul);font-size:.92rem}.stop h3{font:750 1rem system-ui;margin:0 0 4px;color:var(--azul)}.stop p{margin:0;color:var(--muted);font-size:.92rem}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}.card{background:white;border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 10px 25px #12385b12}.card img{width:100%;height:210px;object-fit:cover;background:#e4e8e8}.card-body{padding:18px;display:flex;flex-direction:column;align-items:flex-start;flex:1}.tag{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:#8b6900;font-weight:800}.card h3{font:750 1.25rem Georgia,serif;color:var(--azul);margin:7px 0}.card p{color:var(--muted);font-size:.93rem;margin:0 0 16px}.btn{display:inline-block;border:0;border-radius:999px;background:var(--dorado);color:var(--azul2);padding:10px 17px;font-weight:800;text-decoration:none;cursor:pointer;margin-top:auto}.btn:hover{filter:brightness(.96);transform:translateY(-1px)}
+.detail{border-top:1px solid var(--line);background:#fff}.detail:nth-of-type(even){background:var(--crema)}.detail-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:30px;align-items:start}.detail-grid>img{width:100%;height:370px;object-fit:cover;border-radius:16px;box-shadow:0 10px 28px #12385b1a}.detail h2{font-size:clamp(1.7rem,3.5vw,2.3rem);color:var(--azul);margin:4px 0 14px}.detail h3{font:750 1.05rem system-ui;color:var(--azul);margin:18px 0 5px}.detail p{margin:0 0 10px}.detail ul{padding-left:22px;margin:6px 0 12px}.fact{background:#fff5ce;border-left:4px solid var(--dorado);padding:13px 15px;border-radius:8px;margin:14px 0}.back{display:inline-block;margin-top:12px;color:var(--azul);font-weight:800;text-decoration:none}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:20px}.panel h3{margin:0 0 10px;color:var(--azul);font:750 1.25rem Georgia,serif}.panel ul{padding-left:21px;margin:7px 0}.callout{margin-top:12px;padding:13px;background:#fff5ce;border-radius:10px}.packing{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:15px}.pack{padding:12px;background:#fff;border:1px solid var(--line);border-radius:10px}.pack label{display:flex;gap:8px;font-size:.9rem;cursor:pointer}.pack input{accent-color:#557f59;margin-top:5px}.progress{color:#557f59;font-weight:800;margin:12px 0}.sustain{display:grid;grid-template-columns:1fr 1fr;gap:15px}.sustain article{padding:18px;background:white;border:1px solid var(--line);border-radius:12px}.sustain h3{font:750 1.1rem system-ui;color:var(--azul);margin:0 0 7px}.sustain ul{padding-left:20px;margin:0}
+.qr-section{background:#f0ede4}.qr-box{display:flex;align-items:center;justify-content:center;gap:30px;flex-wrap:wrap;background:white;border:1px solid var(--line);border-radius:18px;padding:28px;max-width:820px;margin:auto;box-shadow:0 10px 25px #12385b0c}.qr-box img{width:210px;height:210px;object-fit:contain;border:8px solid white}.qr-copy{max-width:430px}.qr-copy h3{font:750 1.45rem Georgia,serif;color:var(--azul);margin:0 0 8px}.qr-copy p{margin:0 0 10px;color:var(--muted)}.qr-note{font-size:.86rem;color:#7a5c00}
+.conclusion{background:var(--azul2);color:white}.conclusion .heading h2{color:white}.conclusion blockquote{max-width:900px;margin:16px auto;padding-left:20px;border-left:3px solid var(--dorado);font-size:1.1rem}.quote{text-align:center;color:var(--dorado);font:italic 700 clamp(1.3rem,3vw,1.8rem) Georgia,serif;margin:28px 0 0}
+.credits{font-size:.82rem;color:var(--muted);margin-top:25px}.credits a{color:var(--azul)}footer{background:#071e33;color:#d7e1e9;text-align:center;padding:22px;font-size:.9rem}footer a{color:#ffe58a}
+@media(max-width:850px){.intro,.detail-grid,.cols{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.timeline{grid-template-columns:1fr}.detail-grid>img{height:300px}}
+@media(max-width:560px){.container{width:calc(100% - 24px)}.nav{align-items:flex-start;flex-direction:column;padding:12px 0}nav{gap:10px}nav a{font-size:.8rem}.hero{min-height:350px}.hero-content{padding:48px 0}section{padding:46px 0}.cards,.sustain{grid-template-columns:1fr}.stop{grid-template-columns:1fr;gap:4px}.packing{grid-template-columns:repeat(2,1fr)}.detail-grid>img{height:230px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
 </head>
 <body>
-<header>
-  <div class="container nav">
-    <a class="brand" href="#inicio"><span class="brand-mark" aria-hidden="true">⌂</span><span>Bogotá<br><small>Entre memoria, cultura y tradición</small></span></a>
-    <nav aria-label="Navegación principal">
-      <a href="#inicio">Inicio</a><a href="#recorrido">El recorrido</a><a href="#atractivos">Atractivos</a><a href="#recomendaciones">Recomendaciones</a><a href="#sostenibilidad">Sostenibilidad</a>
-    </nav>
-  </div>
-</header>
-
+<header><div class="container nav">
+<a class="brand" href="#inicio">⌂ Bogotá <small>Entre memoria, cultura y tradición</small></a>
+<nav aria-label="Navegación principal"><a href="#inicio">Inicio</a><a href="#recorrido">El recorrido</a><a href="#atractivos">Atractivos</a><a href="#recomendaciones">Recomendaciones</a><a href="#sostenibilidad">Sostenibilidad</a><a href="#codigo-qr">Código QR</a></nav>
+</div></header>
 <main>
-  <section class="hero" id="inicio">
-    <div class="container hero-content">
-      <div class="eyebrow">Caminantes Históricos · Bogotá, Colombia</div>
-      <h1>Bogotá: entre memoria, cultura y tradición</h1>
-      <h2>Recorrido Turístico</h2>
-      <div class="gold-line"></div>
-      <p>Un viaje por las historias, expresiones culturales y memorias que dan identidad al centro histórico.</p>
-      <a class="btn" href="#recorrido">Conoce el recorrido <span aria-hidden="true">↓</span></a>
-    </div>
-  </section>
+<section class="hero" id="inicio"><div class="container hero-content">
+<div class="eyebrow">Caminantes Históricos · La Candelaria, Bogotá</div>
+<h1>Bogotá: entre memoria, cultura y tradición</h1><h2>Recorrido Turístico</h2><div class="gold-line"></div>
+<p>Un viaje por las historias, expresiones culturales y memorias que dan identidad al centro histórico.</p><a class="btn" href="#recorrido">Conoce el recorrido ↓</a>
+</div></section>
+<section><div class="container intro">
+<div>El recorrido turístico se desarrollará en el centro histórico de Bogotá, principalmente en La Candelaria. A través de diferentes elementos patrimoniales, los visitantes podrán reconocer cómo la historia, las expresiones culturales, las tradiciones religiosas y la transformación urbana se relacionan para construir la identidad de la ciudad.</div>
+<article><div class="eyebrow">Nuestro equipo</div><h2>¿Quiénes Somos?</h2>
+<p>Somos los Caminantes Históricos, un equipo de guías que invita a descubrir Bogotá a través de sus calles, monumentos, edificios y tradiciones. La palabra caminantes simboliza el recorrido y la experiencia de explorar la ciudad, mientras que históricos destaca la riqueza patrimonial y cultural que se encuentra en cada lugar visitado.</p>
+<p>Como equipo, buscamos que los turistas no solo conozcan los sitios emblemáticos de Bogotá, sino que comprendan las historias, memorias y expresiones culturales que les dan significado. A través de un recorrido participativo, sostenible y creativo, queremos conectar el pasado con el presente y demostrar que cada paso por la ciudad es una oportunidad para aprender, valorar y preservar su patrimonio.</p></article>
+</div></section>
 
-  <section>
-    <div class="container intro-grid">
-      <div class="intro-copy">
-        El recorrido turístico se desarrollará en el centro histórico de Bogotá, principalmente en La Candelaria. A través de diferentes elementos patrimoniales, los visitantes podrán reconocer cómo la historia, las expresiones culturales, las tradiciones religiosas y la transformación urbana se relacionan para construir la identidad de la ciudad.
-      </div>
-      <article class="who-card">
-        <div class="eyebrow">Nuestro equipo</div>
-        <h2>¿Quiénes Somos?</h2>
-        <p>Somos los Caminantes Históricos, un equipo de guías que invita a descubrir Bogotá a través de sus calles, monumentos, edificios y tradiciones. La palabra caminantes simboliza el recorrido y la experiencia de explorar la ciudad, mientras que históricos destaca la riqueza patrimonial y cultural que se encuentra en cada lugar visitado.</p>
-        <p>Como equipo, buscamos que los turistas no solo conozcan los sitios emblemáticos de Bogotá, sino que comprendan las historias, memorias y expresiones culturales que les dan significado. A través de un recorrido participativo, sostenible y creativo, queremos conectar el pasado con el presente y demostrar que cada paso por la ciudad es una oportunidad para aprender, valorar y preservar su patrimonio.</p>
-      </article>
-    </div>
-  </section>
+<section class="soft" id="recorrido"><div class="container">
+<div class="heading"><div class="eyebrow">Plan del día</div><h2>Cronograma propuesto</h2><p>Un recorrido para descubrir distintas capas de la memoria bogotana.</p></div>
+<div class="timeline">
+<article class="stop"><div class="time">8:00 – 8:20 a. m.</div><div><h3>Plaza de Bolívar</h3><p>Bienvenida, presentación del equipo.</p></div></article>
+<article class="stop"><div class="time">8:20 – 8:50 a. m.</div><div><h3>Monumento a Camilo Torres y Tenorio</h3><p>Interpretación histórica del monumento y actividad de observación.</p></div></article>
+<article class="stop"><div class="time">8:50 – 9:40 a. m.</div><div><h3>Casa de Nariño</h3><p>Explicación de su importancia institucional y del cambio de guardia, si coincide con la programación oficial.</p></div></article>
+<article class="stop"><div class="time">10:00 – 10:40 a. m.</div><div><h3>Casa FUGA</h3><p>Interpretación cultural, historia del inmueble y reflexión sobre el arte y la transformación urbana.</p></div></article>
+<article class="stop"><div class="time">10:40 – 11:30 a. m.</div><div><h3>Centro Histórico – Contextualización de Monserrate</h3><p>Conexión narrativa con los Cerros Orientales y recomendaciones para la visita.</p></div></article>
+<article class="stop"><div class="time">12:00 – 1:00 p. m.</div><div><h3>Almuerzo</h3><p>Pausa para alimentación, hidratación y descanso. Se recomienda consumir en un establecimiento local.</p></div></article>
+<article class="stop"><div class="time">1:40 – 2:20 p. m.</div><div><h3>Calle del Embudo</h3><p>Caminata interpretativa, observación de murales y reflexión sobre la identidad barrial.</p></div></article>
+<article class="stop"><div class="time">2:40 – 3:20 p. m.</div><div><h3>Edificio El Tiempo–Citytv</h3><p>Interpretación de su arquitectura y su relación histórica con los medios de comunicación.</p></div></article>
+<article class="stop"><div class="time">3:20 – 3:50 p. m.</div><div><h3>Cierre del recorrido</h3><p>Actividad de reflexión, conclusiones, agradecimientos y fotografía grupal.</p></div></article>
+</div></div></section>
 
-  <section class="soft" id="recorrido">
-    <div class="container">
-      <div class="section-heading"><div class="eyebrow">Plan del día</div><h2>Cronograma propuesto</h2><p>Un recorrido para descubrir distintas capas de la memoria bogotana.</p></div>
-      <div class="timeline">
-        <article class="stop"><div class="time">8:00 – 8:20 a. m.</div><div><h3>Plaza de Bolívar</h3><p>Bienvenida, presentación del equipo.</p></div></article>
-        <article class="stop"><div class="time">8:20 – 8:50 a. m.</div><div><h3>Monumento a Camilo Torres y Tenorio</h3><p>Interpretación histórica del monumento y actividad de observación.</p></div></article>
-        <article class="stop"><div class="time">8:50 – 9:40 a. m.</div><div><h3>Casa de Nariño</h3><p>Explicación de su importancia institucional y del cambio de guardia, si coincide con la programación oficial.</p></div></article>
-        <article class="stop"><div class="time">10:00 – 10:40 a. m.</div><div><h3>Casa FUGA</h3><p>Interpretación cultural, historia del inmueble y reflexión sobre el arte y la transformación urbana.</p></div></article>
-        <article class="stop"><div class="time">10:40 – 11:30 a. m.</div><div><h3>Centro Histórico – Contextualización de Monserrate</h3><p>Conexión narrativa con los Cerros Orientales y recomendaciones para la visita.</p></div></article>
-        <article class="stop"><div class="time">12:00 – 1:00 p. m.</div><div><h3>Almuerzo</h3><p>Pausa para alimentación, hidratación y descanso. Se recomienda consumir en un establecimiento local.</p></div></article>
-        <article class="stop"><div class="time">1:40 – 2:20 p. m.</div><div><h3>Calle del Embudo</h3><p>Caminata interpretativa, observación de murales y reflexión sobre la identidad barrial.</p></div></article>
-        <article class="stop"><div class="time">2:40 – 3:20 p. m.</div><div><h3>Edificio El Tiempo–Citytv</h3><p>Interpretación de su arquitectura y su relación histórica con los medios de comunicación.</p></div></article>
-        <article class="stop"><div class="time">3:20 – 3:50 p. m.</div><div><h3>Cierre del recorrido</h3><p>Actividad de reflexión, conclusiones, agradecimientos y fotografía grupal.</p></div></article>
-      </div>
-    </div>
-  </section>
+<section id="atractivos"><div class="container"><div class="heading"><div class="eyebrow">Seis paradas, muchas historias</div><h2>Nuestros 6 atractivos turísticos</h2><p>Selecciona “Ver descripción” para conocer cada lugar.</p></div>
+<div class="cards">
+<article class="card"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Camilo_Torres_Tenorio.JPG?width=1000" alt="Estatua de Camilo Torres y Tenorio en Bogotá" onerror="this.src='https://placehold.co/900x600/e9e3d5/173653?text=Camilo+Torres'"><div class="card-body"><span class="tag">Memoria histórica</span><h3>Monumento a Camilo Torres y Tenorio</h3><p>Homenaje a una figura vinculada al proceso de Independencia.</p><a class="btn" href="#camilo">Ver descripción →</a></div></article>
+<article class="card"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Cambio_de_Guardia_Casa_de_Nari%C3%B1o.jpg?width=1000" alt="Cambio de Guardia en la Casa de Nariño" onerror="this.src='https://placehold.co/900x600/e9e3d5/173653?text=Casa+de+Nariño'"><div class="card-body"><span class="tag">Patrimonio institucional</span><h3>Casa de Nariño – Cambio de Guardia</h3><p>Historia presidencial y tradición ceremonial.</p><a class="btn" href="#narino">Ver descripción →</a></div></article>
+<article class="card"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Casa_Fundaci%C3%B3n_Gilberto_Alzate_Avenda%C3%B1o.JPG?width=1000" alt="Casa de la Fundación Gilberto Alzate Avendaño, FUGA" onerror="this.src='https://placehold.co/900x600/e9e3d5/173653?text=Casa+FUGA'"><div class="card-body"><span class="tag">Arte y patrimonio</span><h3>Casa FUGA</h3><p>Casa histórica que hoy impulsa la cultura y las artes.</p><a class="btn" href="#fuga">Ver descripción →</a></div></article>
+<article class="card"><img loading="lazy" src="https://laud.udistrital.edu.co/sites/default/files/imagen-noticia/2026-03/MONSERRATE.png" alt="Peregrinos ascendiendo por el sendero de Monserrate" onerror="this.src='https://placehold.co/900x600/e9e3d5/173653?text=Monserrate'"><div class="card-body"><span class="tag">Tradición viva</span><h3>Peregrinación a Monserrate</h3><p>Fe, paisaje, tradición y encuentro en los Cerros Orientales.</p><a class="btn" href="#monserrate">Ver descripción →</a></div></article>
+<article class="card"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bogot%C3%A1_Calle_del_Embudo.JPG?width=1000" alt="Calle del Embudo en La Candelaria, Bogotá" onerror="this.src='https://placehold.co/900x600/e9e3d5/173653?text=Calle+del+Embudo'"><div class="card-body"><span class="tag">Cultura barrial</span><h3>Calle del Embudo</h3><p>Calle estrecha donde conviven arte, comercio y comunidad.</p><a class="btn" href="#embudo">Ver descripción →</a></div></article>
+<article class="card"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Edificio_El_Tiempo_Bogot%C3%A1.JPG?width=1000" alt="Edificio El Tiempo en la Avenida Jiménez, Bogotá" onerror="this.src='https://placehold.co/900x600/e9e3d5/173653?text=Edificio+El+Tiempo'"><div class="card-body"><span class="tag">Arquitectura moderna</span><h3>Edificio El Tiempo – Citytv</h3><p>Arquitectura moderna y memoria de los medios de comunicación.</p><a class="btn" href="#eltiempo">Ver descripción →</a></div></article>
+</div>
+<p class="credits">Fotografías: <a href="https://commons.wikimedia.org/wiki/File:Camilo_Torres_Tenorio.JPG" target="_blank" rel="noopener">Camilo Torres</a>, <a href="https://commons.wikimedia.org/wiki/File:Cambio_de_Guardia_Casa_de_Nari%C3%B1o.jpg" target="_blank" rel="noopener">Cambio de Guardia</a>, <a href="https://commons.wikimedia.org/wiki/File:Casa_Fundaci%C3%B3n_Gilberto_Alzate_Avenda%C3%B1o.JPG" target="_blank" rel="noopener">Casa FUGA</a>, <a href="https://laud.udistrital.edu.co/bogota/monserrate-se-prepara-para-recibir-miles-de-visitantes-en-semana-santa" target="_blank" rel="noopener">Peregrinación a Monserrate</a>, <a href="https://commons.wikimedia.org/wiki/File:Bogot%C3%A1_Calle_del_Embudo.JPG" target="_blank" rel="noopener">Calle del Embudo</a> y <a href="https://commons.wikimedia.org/wiki/File:Edificio_El_Tiempo_Bogot%C3%A1.JPG" target="_blank" rel="noopener">Edificio El Tiempo</a>. Consulta las páginas de origen para sus licencias y atribuciones.</p>
+</div></section>
 
-  <section id="atractivos">
-    <div class="container">
-      <div class="section-heading"><div class="eyebrow">Seis paradas, muchas historias</div><h2>Nuestros 6 atractivos turísticos</h2><p>Selecciona “Ver descripción” para conocer la historia, características e importancia de cada lugar.</p></div>
-      <div class="attractions-grid">
-        <article class="attraction-card"><img loading="lazy" src="https://images.unsplash.com/photo-1568632234157-ce7a889b8b3a?auto=format&fit=crop&w=900&q=80" alt="Monumento escultórico en una plaza histórica" onerror="this.src='https://placehold.co/900x600/e9e3d5/173653?text=Camilo+Torres'"><div class="card-body"><span class="tag">Memoria histórica</span><h3>Monumento a Camilo Torres y Tenorio</h3><p>Un homenaje a una figura vinculada al proceso de Independencia.</p><a class="btn" href="#camilo">Ver descripción →</a></div></article>
-        <article class="attraction-card"><img loading="lazy" src="https://images.unsplash.com/photo-1562835155-6e9c4f4f4f1b?auto=format&fit=crop&w=900&q=80" alt="Edificio institucional de arquitectura clásica" onerror="this.src='https://placehold.co/900x600/e9e3d5/173653?text=Casa+de+Nariño'"><div class="card-body"><span class="tag">Patrimonio institucional</span><h3>Casa de Nariño + Cambio de Guardia</h3><p>Historia presidencial y tradición ceremonial.</p><a class="btn" href="#narino">Ver descripción →</a></div></article>
-        <article class="attraction-card"><img loading="lazy" src="https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=900&q=80" alt="Casa histórica con patio interior" onerror="this.src='https://placehold.co/900x600/e9e3d5/173653?text=Casa+FUGA'"><div class="card-body"><span class="tag">Arte y patrimonio</span><h3>Casa FUGA</h3><p>Una casa histórica que hoy impulsa la cultura y las artes.</p><a class="btn" href="#fuga">Ver descripción →</a></div></article>
-        <article class="attraction-card"><img loading="lazy" src="https://images.unsplash.com/photo-1596402184320-417e7178b2cd?auto=format&fit=crop&w=900&q=80" alt="Santuario en una montaña sobre la ciudad" onerror="this.src='https://placehold.co/900x600/e9e3d5/173653?text=Monserrate'"><div class="card-body"><span class="tag">Tradición viva</span><h3>Peregrinación de Monserrate</h3><p>Fe, paisaje, tradición y encuentro en los Cerros Orientales.</p><a class="btn" href="#monserrate">Ver descripción →</a></div></article>
-        <article class="attraction-card"><img loading="lazy" src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=900&q=80" alt="Calle peatonal colorida con arte urbano" onerror="this.src='https://placehold.co/900x600/e9e3d5/173653?text=Calle+del+Embudo'"><div class="card-body"><span class="tag">Cultura barrial</span><h3>Calle del Embudo</h3><p>Una calle estrecha donde conviven arte, comercio y comunidad.</p><a class="btn" href="#embudo">Ver descripción →</a></div></article>
-        <article class="attraction-card"><img loading="lazy" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=900&q=80" alt="Edificio de arquitectura moderna" onerror="this.src='https://placehold.co/900x600/e9e3d5/173653?text=Edificio+El+Tiempo'"><div class="card-body"><span class="tag">Arquitectura moderna</span><h3>Edificio El Tiempo – Citytv</h3><p>Arquitectura moderna y memoria de los medios de comunicación.</p><a class="btn" href="#eltiempo">Ver descripción →</a></div></article>
-      </div>
-    </div>
-  </section>
+<section class="detail" id="camilo"><div class="container detail-grid"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Camilo_Torres_Tenorio.JPG?width=1200" alt="Monumento a Camilo Torres y Tenorio en la plazoleta del Colegio Mayor de San Bartolomé">
+<div><div class="eyebrow">Atractivo 01</div><h2>Monumento a Camilo Torres y Tenorio</h2>
+<p><strong>📍 Ubicación:</strong> Calle 10 con Carrera 7 – Plazoleta del Colegio Mayor de San Bartolomé, La Candelaria.</p><p><strong>🏛️ Tipo:</strong> Patrimonio cultural material – Monumento en espacio público.</p>
+<h3>📖 Historia</h3><p>Camilo Torres y Tenorio (1766–1816) fue abogado, político y uno de los personajes relacionados con el proceso de Independencia de Colombia. Es recordado especialmente por el <strong>Memorial de Agravios de 1809</strong>, documento en el que expresó la inconformidad de los criollos por la desigualdad en la representación política frente a los españoles.</p>
+<p>La escultura bogotana fue inaugurada el <strong>20 de julio de 1960</strong>, durante las conmemoraciones del sesquicentenario de la Independencia. Es una reproducción de la obra realizada originalmente por Charles Raoul Verlet en Popayán; la versión bogotana fue ejecutada por <strong>Gerardo Benítez</strong>.</p>
+<h3>👀 ¿Qué podemos observar?</h3><ul><li>Camilo Torres aparece representado como abogado.</li><li>Sostiene un documento relacionado con el Memorial de Agravios.</li><li>Se encuentra en la plazoleta del Colegio Mayor de San Bartolomé.</li><li>Su ubicación lo relaciona con el centro histórico y edificios políticos de la ciudad.</li></ul>
+<div class="fact"><strong>💡 Dato curioso:</strong> El monumento bogotano es una reproducción de la escultura original de Popayán, creada por Charles Raoul Verlet.</div>
+<p><strong>⭐ Importancia turística:</strong> Permite conocer un personaje fundamental de la Independencia y comprender cómo el espacio público conserva la memoria histórica.</p><a class="back" href="#atractivos">↑ Volver a los atractivos</a></div></div></section>
 
-  <section class="detail" id="camilo"><div class="container detail-grid">
-    <img loading="lazy" src="https://images.unsplash.com/photo-1568632234157-ce7a889b8b3a?auto=format&fit=crop&w=1200&q=85" alt="Escultura en espacio público histórico" onerror="this.src='https://placehold.co/1200x800/e9e3d5/173653?text=Monumento+a+Camilo+Torres'">
-    <div><div class="eyebrow">Atractivo 01</div><h2>Monumento a Camilo Torres y Tenorio</h2>
-      <p><strong>📍 Ubicación:</strong> Calle 10 con Carrera 7 – Plazoleta del Colegio Mayor de San Bartolomé, La Candelaria.</p>
-      <p><strong>🏛️ Tipo:</strong> Patrimonio cultural material – Monumento en espacio público.</p>
-      <h3>📖 Historia</h3><p>Camilo Torres y Tenorio (1766–1816) fue abogado, político y uno de los personajes relacionados con el proceso de Independencia de Colombia. Es recordado especialmente por el <strong>Memorial de Agravios de 1809</strong>, documento en el que expresó la inconformidad de los criollos por la desigualdad en la representación política frente a los españoles.</p>
-      <p>La escultura ubicada en Bogotá fue inaugurada el <strong>20 de julio de 1960</strong>, durante las conmemoraciones del sesquicentenario de la Independencia. Es una reproducción de la obra realizada originalmente por Charles Raoul Verlet en Popayán; la versión bogotana fue ejecutada por <strong>Gerardo Benítez</strong>.</p>
-      <h3>👀 ¿Qué podemos observar?</h3><ul><li>Camilo Torres aparece representado como abogado.</li><li>Sostiene un documento relacionado con el Memorial de Agravios.</li><li>Se encuentra en la plazoleta del Colegio Mayor de San Bartolomé.</li><li>Su ubicación lo relaciona con el centro histórico y edificios políticos de la ciudad.</li></ul>
-      <div class="fact"><strong>💡 Dato curioso:</strong> El monumento bogotano es una reproducción de la escultura original de Popayán, creada por Charles Raoul Verlet.</div>
-      <p class="importance">⭐ Importancia turística: permite conocer un personaje fundamental de la Independencia y comprender cómo el espacio público puede convertirse en un lugar para conservar la memoria histórica.</p>
-      <a class="return-link" href="#atractivos">↑ Volver a los atractivos</a>
-    </div></div></section>
+<section class="detail" id="narino"><div class="container detail-grid"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Cambio_de_Guardia_Casa_de_Nari%C3%B1o.jpg?width=1200" alt="Ceremonia del Cambio de Guardia en la Casa de Nariño">
+<div><div class="eyebrow">Atractivo 02</div><h2>Casa de Nariño + Cambio de Guardia</h2>
+<p><strong>📍 Ubicación:</strong> Carrera 8 #7-26, La Candelaria.</p><p><strong>🏛️ Tipo:</strong> Patrimonio cultural + manifestación ceremonial.</p>
+<h3>📖 Historia</h3><p>La Casa de Nariño es actualmente la <strong>sede de la Presidencia de la República de Colombia</strong>. El lugar está relacionado con Antonio Nariño, prócer de la Independencia, quien nació y creció en esta casa.</p>
+<h3>🎖️ Cambio de Guardia</h3><p>El Cambio de Guardia Presidencial es una ceremonia realizada por el Batallón de Guardia Presidencial. Representa disciplina, tradición militar, ceremonial institucional, protección de la sede presidencial y patrimonio cultural vivo.</p>
+<p>La programación puede cambiar; confirma los horarios y condiciones de visita en los canales oficiales de la Presidencia antes de asistir.</p>
+<h3>👀 ¿Qué podemos observar?</h3><ul><li>La fachada de la sede presidencial.</li><li>Los espacios históricos de la Casa de Nariño.</li><li>Elementos ceremoniales relacionados con la Presidencia.</li><li>El Cambio de Guardia, cuando corresponde al horario de visita.</li></ul>
+<div class="fact"><strong>💡 Dato curioso:</strong> La Casa de Nariño ofrece visitas guiadas gratuitas, sujetas a registro previo y disponibilidad. Verifica las condiciones oficiales.</div>
+<p><strong>⭐ Importancia turística:</strong> Es uno de los espacios que permite acercarse a la historia política e institucional de Colombia.</p><a class="back" href="#atractivos">↑ Volver a los atractivos</a></div></div></section>
 
-  <section class="detail" id="narino"><div class="container detail-grid">
-    <img loading="lazy" src="https://images.unsplash.com/photo-1562835155-6e9c4f4f4f1b?auto=format&fit=crop&w=1200&q=85" alt="Fachada de edificio institucional" onerror="this.src='https://placehold.co/1200x800/e9e3d5/173653?text=Casa+de+Nariño'">
-    <div><div class="eyebrow">Atractivo 02</div><h2>Casa de Nariño + Cambio de Guardia</h2>
-      <p><strong>📍 Ubicación:</strong> Carrera 8 #7-26, La Candelaria.</p><p><strong>🏛️ Tipo:</strong> Patrimonio cultural + manifestación ceremonial.</p>
-      <h3>📖 Historia</h3><p>La Casa de Nariño es actualmente la <strong>sede de la Presidencia de la República de Colombia</strong>. El lugar está relacionado con Antonio Nariño, prócer de la Independencia, quien nació y creció en esta casa. La Presidencia destaca la relación histórica entre la vivienda y el personaje que posteriormente le dio su nombre.</p>
-      <h3>🎖️ Cambio de Guardia</h3><p>El Cambio de Guardia Presidencial es una ceremonia realizada por el Batallón de Guardia Presidencial. Representa disciplina, tradición militar, ceremonial institucional, protección de la sede presidencial y patrimonio cultural vivo.</p>
-      <p>Según la información suministrada para este recorrido, puede observarse durante visitas de miércoles, viernes y domingo a las 2:00 p. m. y 3:00 p. m.; verifica la programación oficial antes de asistir.</p>
-      <h3>👀 ¿Qué podemos observar?</h3><ul><li>La fachada de la sede presidencial.</li><li>Los espacios históricos de la Casa de Nariño.</li><li>Elementos ceremoniales relacionados con la Presidencia.</li><li>El Cambio de Guardia, cuando corresponde al horario de visita.</li></ul>
-      <div class="fact"><strong>💡 Dato curioso:</strong> La Casa de Nariño ofrece visitas guiadas gratuitas para colombianos y extranjeros, con duración aproximada de 45 minutos y mediante registro previo. Confirma condiciones y disponibilidad oficiales.</div>
-      <p class="importance">⭐ Importancia turística: es uno de los espacios que permite acercarse a la historia política e institucional de Colombia.</p><a class="return-link" href="#atractivos">↑ Volver a los atractivos</a>
-    </div></div></section>
+<section class="detail" id="fuga"><div class="container detail-grid"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Casa_Fundaci%C3%B3n_Gilberto_Alzate_Avenda%C3%B1o.JPG?width=1200" alt="Casa histórica de la Fundación Gilberto Alzate Avendaño">
+<div><div class="eyebrow">Atractivo 03</div><h2>Casa FUGA</h2>
+<p><strong>📍 Ubicación:</strong> Calle 10 #3-16, La Candelaria.</p><p><strong>🏛️ Tipo:</strong> Patrimonio cultural material + espacio cultural.</p>
+<h3>📖 Historia</h3><p>La <strong>Fundación Gilberto Alzate Avendaño (FUGA)</strong> tiene su sede en una casa histórica del centro de Bogotá. El inmueble estuvo relacionado con personajes del periodo colonial, entre ellos los virreyes José de Ezpeleta y Juan Sámano.</p><p>Actualmente, la FUGA es un espacio dedicado al desarrollo y promoción de actividades culturales y artísticas en el centro de Bogotá.</p>
+<h3>🎨 ¿Qué encontramos?</h3><ul><li>Exposiciones y artes visuales.</li><li>Música y actividades culturales.</li><li>Programación artística.</li><li>Procesos relacionados con patrimonio y territorio.</li></ul>
+<div class="fact"><strong>💡 Dato curioso:</strong> La FUGA combina una construcción histórica con actividades culturales contemporáneas.</div>
+<p><strong>⭐ Importancia turística:</strong> Representa cómo el patrimonio puede adaptarse a nuevos usos sin perder su relación con la historia.</p><a class="back" href="#atractivos">↑ Volver a los atractivos</a></div></div></section>
 
-  <section class="detail" id="fuga"><div class="container detail-grid">
-    <img loading="lazy" src="https://images.unsplash.com/photo-1605649487212-47bdab064df7?auto=format&fit=crop&w=1200&q=85" alt="Patio de una casa histórica" onerror="this.src='https://placehold.co/1200x800/e9e3d5/173653?text=Casa+FUGA'">
-    <div><div class="eyebrow">Atractivo 03</div><h2>Casa FUGA</h2>
-      <p><strong>📍 Ubicación:</strong> Calle 10 #3-16, La Candelaria.</p><p><strong>🏛️ Tipo:</strong> Patrimonio cultural material + espacio cultural.</p>
-      <h3>📖 Historia</h3><p>La <strong>Fundación Gilberto Alzate Avendaño (FUGA)</strong> tiene su sede en una casa histórica del centro de Bogotá. El inmueble estuvo relacionado con personajes del periodo colonial, entre ellos los virreyes José de Ezpeleta y Juan Sámano.</p>
-      <p>Actualmente, la FUGA es un espacio dedicado al desarrollo y promoción de actividades culturales y artísticas en el centro de Bogotá.</p>
-      <h3>🎨 ¿Qué encontramos?</h3><ul><li>Exposiciones y artes visuales.</li><li>Música y actividades culturales.</li><li>Programación artística.</li><li>Procesos relacionados con patrimonio y territorio.</li></ul>
-      <div class="fact"><strong>💡 Dato curioso:</strong> La FUGA combina dos elementos que parecen muy diferentes: una construcción histórica y actividades culturales contemporáneas.</div>
-      <p class="importance">⭐ Importancia turística: representa cómo el patrimonio puede adaptarse a nuevos usos sin perder su relación con la historia.</p><a class="return-link" href="#atractivos">↑ Volver a los atractivos</a>
-    </div></div></section>
+<section class="detail" id="monserrate"><div class="container detail-grid"><img loading="lazy" src="https://laud.udistrital.edu.co/sites/default/files/imagen-noticia/2026-03/MONSERRATE.png" alt="Visitantes y peregrinos ascendiendo por el sendero de Monserrate">
+<div><div class="eyebrow">Atractivo 04</div><h2>Peregrinación de Monserrate</h2><p><strong>🏛️ Tipo:</strong> Patrimonio cultural inmaterial – Celebraciones y rituales.</p>
+<h3>📖 Historia</h3><p>Monserrate es uno de los lugares más representativos de Bogotá y un tradicional sitio de peregrinación. En <strong>1640</strong> se construyó una primera ermita dedicada a la Virgen de Montserrat. En <strong>1656</strong> llegó la imagen del <strong>Señor Caído</strong>, que posteriormente se convirtió en el centro de la devoción del santuario.</p>
+<h3>🙏 La peregrinación</h3><p>La peregrinación combina fe, religión, promesas, tradición, turismo, naturaleza, ejercicio, gastronomía y comercio. Monserrate puede ser simultáneamente un lugar religioso, turístico, paisajístico y cultural.</p>
+<h3>💡 Datos curiosos</h3><ul><li><strong>1640:</strong> primera ermita.</li><li><strong>1656:</strong> llegada del Señor Caído.</li><li><strong>1929:</strong> inauguración del funicular.</li><li><strong>1955:</strong> inauguración del teleférico.</li></ul><p>El sendero peatonal cuenta con 1.605 escalones y aproximadamente 2.350 metros de extensión.</p>
+<h3>👀 ¿Qué podemos observar?</h3><ul><li>El Santuario del Señor Caído y los Cerros Orientales.</li><li>El paisaje de Bogotá.</li><li>Peregrinos y visitantes.</li><li>Diferentes formas de acceso al cerro.</li></ul>
+<p><strong>⭐ Importancia turística:</strong> Monserrate representa la unión entre fe, tradición, naturaleza y turismo, convirtiéndose en uno de los símbolos más reconocibles de Bogotá.</p><a class="back" href="#atractivos">↑ Volver a los atractivos</a></div></div></section>
 
-  <section class="detail" id="monserrate"><div class="container detail-grid">
-    <img loading="lazy" src="https://images.unsplash.com/photo-1596402184320-417e7178b2cd?auto=format&fit=crop&w=1200&q=85" alt="Santuario y paisaje de montaña" onerror="this.src='https://placehold.co/1200x800/e9e3d5/173653?text=Monserrate'">
-    <div><div class="eyebrow">Atractivo 04</div><h2>Peregrinación de Monserrate</h2>
-      <p><strong>🏛️ Tipo:</strong> Patrimonio cultural inmaterial – Celebraciones y rituales.</p>
-      <h3>📖 Historia</h3><p>Monserrate es uno de los lugares más representativos de Bogotá y un tradicional sitio de peregrinación. En <strong>1640</strong> se construyó una primera ermita dedicada a la Virgen de Montserrat. En <strong>1656</strong> llegó la imagen del Señor Caído, que posteriormente se convirtió en el centro de la devoción del santuario.</p>
-      <h3>🙏 La peregrinación</h3><p>La peregrinación combina fe, religión, promesas, tradición, turismo, naturaleza, ejercicio, gastronomía y comercio. Monserrate puede ser simultáneamente un lugar religioso, turístico, paisajístico y cultural.</p>
-      <h3>💡 Datos curiosos</h3><ul><li><strong>1640:</strong> primera ermita.</li><li><strong>1656:</strong> llegada del Señor Caído.</li><li><strong>1929:</strong> inauguración del funicular.</li><li><strong>1955:</strong> inauguración del teleférico.</li></ul><p>El sendero peatonal cuenta con 1.605 escalones y aproximadamente 2.350 metros de extensión.</p>
-      <h3>👀 ¿Qué podemos observar?</h3><ul><li>El Santuario del Señor Caído.</li><li>Los Cerros Orientales y el paisaje de Bogotá.</li><li>Peregrinos y visitantes.</li><li>Diferentes formas de acceso al cerro.</li></ul>
-      <p class="importance">⭐ Importancia turística: Monserrate representa la unión entre fe, tradición, naturaleza y turismo, convirtiéndose en uno de los símbolos más reconocibles de Bogotá.</p><a class="return-link" href="#atractivos">↑ Volver a los atractivos</a>
-    </div></div></section>
+<section class="detail" id="embudo"><div class="container detail-grid"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bogot%C3%A1_Calle_del_Embudo.JPG?width=1200" alt="Calle del Embudo, vía peatonal de La Candelaria">
+<div><div class="eyebrow">Atractivo 05</div><h2>Calle del Embudo</h2><p><strong>📍 Ubicación:</strong> Carrera 2 entre calles 12B y 12C, La Candelaria.</p><p><strong>🏛️ Tipo:</strong> Patrimonio cultural material – Espacio urbano histórico.</p>
+<h3>📖 Historia y características</h3><p>La Calle del Embudo es una de las vías peatonales más características de La Candelaria. Su nombre se relaciona con su forma estrecha, que recuerda a la figura de un embudo.</p><p>Es una calle vinculada al entorno del Chorro de Quevedo y se caracteriza por sus construcciones tradicionales, actividades comerciales, gastronomía, artesanías y expresiones artísticas.</p>
+<h3>🎨 ¿Qué encontramos?</h3><ul><li>Arquitectura tradicional y arte urbano.</li><li>Artesanías y gastronomía.</li><li>Cafés, comercio y actividades turísticas.</li></ul>
+<div class="fact"><strong>💡 Dato curioso:</strong> Su importancia no está solamente en una construcción específica: la propia calle funciona como atractivo turístico. El patrimonio también está en los espacios públicos y en cómo la comunidad los utiliza.</div>
+<p><strong>⭐ Importancia turística:</strong> La Calle del Embudo representa la relación entre patrimonio, comunidad, cultura y turismo.</p><a class="back" href="#atractivos">↑ Volver a los atractivos</a></div></div></section>
 
-  <section class="detail" id="embudo"><div class="container detail-grid">
-    <img loading="lazy" src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1200&q=85" alt="Calle urbana de arquitectura tradicional" onerror="this.src='https://placehold.co/1200x800/e9e3d5/173653?text=Calle+del+Embudo'">
-    <div><div class="eyebrow">Atractivo 05</div><h2>Calle del Embudo</h2>
-      <p><strong>📍 Ubicación:</strong> Carrera 2 entre calles 12B y 12C, La Candelaria.</p><p><strong>🏛️ Tipo:</strong> Patrimonio cultural material – Espacio urbano histórico.</p>
-      <h3>📖 Historia y características</h3><p>La Calle del Embudo es una de las vías peatonales más características de La Candelaria. Su nombre se relaciona con su forma estrecha, que recuerda a la figura de un embudo.</p>
-      <p>Es una calle vinculada al entorno del Chorro de Quevedo y se caracteriza por sus construcciones tradicionales, actividades comerciales, gastronomía, artesanías y expresiones artísticas.</p>
-      <h3>🎨 ¿Qué encontramos?</h3><ul><li>Arquitectura tradicional y arte urbano.</li><li>Artesanías y gastronomía.</li><li>Cafés, comercio y actividades turísticas.</li></ul>
-      <div class="fact"><strong>💡 Dato curioso:</strong> Su importancia no está solamente en una construcción específica: la propia calle funciona como atractivo turístico. Esto demuestra que el patrimonio también está en los espacios públicos y en la forma en que la comunidad los utiliza.</div>
-      <p class="importance">⭐ Importancia turística: la Calle del Embudo representa la relación entre patrimonio, comunidad, cultura y turismo.</p><a class="return-link" href="#atractivos">↑ Volver a los atractivos</a>
-    </div></div></section>
+<section class="detail" id="eltiempo"><div class="container detail-grid"><img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Edificio_El_Tiempo_Bogot%C3%A1.JPG?width=1200" alt="Edificio El Tiempo en la Avenida Jiménez con carrera Séptima">
+<div><div class="eyebrow">Atractivo 06</div><h2>Edificio El Tiempo – Citytv</h2><p><strong>📍 Ubicación:</strong> Avenida Jiménez #6-93, Carrera 7.ª.</p><p><strong>🏛️ Tipo:</strong> Patrimonio cultural material – Arquitectura moderna.</p>
+<h3>📖 Historia</h3><p>El edificio fue diseñado por el arquitecto <strong>Bruno Violi</strong> y construido entre <strong>1958 y 1960</strong>. Fue construido para albergar las oficinas y talleres del periódico El Tiempo y fue inaugurado en 1961, con motivo de los 50 años de la fundación del periódico.</p><p>El periódico permaneció allí hasta 1978, cuando se trasladó a una nueva sede. El edificio posteriormente quedó asociado con Citytv.</p>
+<h3>🏗️ Arquitectura</h3><ul><li>Planta en forma de L.</li><li>Fachada dividida en tres cuerpos.</li><li>Elementos de piedra.</li><li>Modulación horizontal y vertical, característica de la arquitectura moderna.</li></ul><p>Está declarado <strong>Bien de Interés Cultural del ámbito distrital</strong> mediante el Decreto 678 de 1994.</p>
+<div class="fact"><strong>💡 Dato curioso:</strong> El edificio fue concebido originalmente para oficinas y talleres vinculados a la producción de un periódico.</div>
+<p><strong>⭐ Importancia turística:</strong> Permite observar la transformación arquitectónica de Bogotá durante el siglo XX y comprender la importancia de los medios de comunicación en la historia urbana.</p><a class="back" href="#atractivos">↑ Volver a los atractivos</a></div></div></section>
 
-  <section class="detail" id="eltiempo"><div class="container detail-grid">
-    <img loading="lazy" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=85" alt="Edificio de arquitectura moderna" onerror="this.src='https://placehold.co/1200x800/e9e3d5/173653?text=Edificio+El+Tiempo'">
-    <div><div class="eyebrow">Atractivo 06</div><h2>Edificio El Tiempo – Citytv</h2>
-      <p><strong>📍 Ubicación:</strong> Avenida Jiménez #6-93, Carrera 7.ª.</p><p><strong>🏛️ Tipo:</strong> Patrimonio cultural material – Arquitectura moderna.</p>
-      <h3>📖 Historia</h3><p>El edificio fue diseñado por el arquitecto <strong>Bruno Violi</strong> y construido entre <strong>1958 y 1960</strong>. Fue construido para albergar las oficinas y talleres del periódico El Tiempo y fue inaugurado en 1961, con motivo de los 50 años de la fundación del periódico.</p>
-      <p>El periódico permaneció allí hasta 1978, cuando se trasladó a una nueva sede. El edificio posteriormente quedó asociado con Citytv.</p>
-      <h3>🏗️ Arquitectura</h3><ul><li>Planta en forma de L.</li><li>Fachada dividida en tres cuerpos.</li><li>Elementos de piedra.</li><li>Modulación horizontal y vertical, característica de la arquitectura moderna.</li></ul>
-      <p>Está declarado <strong>Bien de Interés Cultural del ámbito distrital</strong> mediante el Decreto 678 de 1994.</p>
-      <div class="fact"><strong>💡 Dato curioso:</strong> El edificio fue concebido originalmente para una actividad relacionada con la producción de información, no como edificio residencial o comercial. Sus espacios estaban pensados para oficinas y talleres de un periódico.</div>
-      <p class="importance">⭐ Importancia turística: permite observar la transformación arquitectónica de Bogotá durante el siglo XX y comprender la importancia de los medios de comunicación en la historia urbana.</p><a class="return-link" href="#atractivos">↑ Volver a los atractivos</a>
-    </div></div></section>
+<section class="soft" id="recomendaciones"><div class="container"><div class="heading"><div class="eyebrow">Prepárate para caminar</div><h2>Condiciones y recomendaciones</h2><p>El clima puede cambiar durante el día; planea tu vestuario para estar cómodo.</p></div>
+<div class="cols">
+<article class="panel"><h3>🌦️ Condiciones climáticas</h3><ul><li>Temperatura fresca durante la mañana y al final de la tarde.</li><li>Posibilidad de lluvias, especialmente en el segundo periodo lluvioso del año.</li><li>Cambios rápidos entre momentos soleados y nublados.</li><li>Mayor exposición al viento y al frío durante la visita a Monserrate.</li></ul><div class="callout">Para disfrutar el recorrido cómodamente, utiliza ropa adecuada para caminar durante varias horas y adaptarte a los cambios de temperatura.</div></article>
+<article class="panel"><h3>🧥 Prendas y accesorios</h3><ul><li><strong>Camiseta:</strong> cómoda, preferiblemente transpirable.</li><li><strong>Chaqueta:</strong> abrigada, ligera e impermeable.</li><li><strong>Pantalón:</strong> cómodo, que facilite caminar y subir escaleras.</li><li><strong>Calzado:</strong> tenis o zapatos cerrados con buena suela antideslizante.</li><li><strong>Accesorios:</strong> gorra, gafas de sol y bloqueador solar.</li><li><strong>Mochila:</strong> pequeña, liviana y cómoda.</li></ul><div class="callout">Evita tacones, zapatos nuevos que puedan causar ampollas, prendas pesadas o accesorios que dificulten la movilidad. En Monserrate, el calzado cómodo es especialmente importante.</div></article>
+</div>
+<div class="panel" style="margin-top:22px"><h3>🎒 Elementos que debe llevar cada turista</h3><p>Marca lo que ya tienes listo:</p><div class="packing" id="packing">
+<div class="pack"><label><input type="checkbox">💧 Botella de agua reutilizable</label></div><div class="pack"><label><input type="checkbox">🌂 Chaqueta impermeable o paraguas compacto</label></div><div class="pack"><label><input type="checkbox">☀️ Bloqueador solar</label></div><div class="pack"><label><input type="checkbox">🪪 Documento de identidad</label></div><div class="pack"><label><input type="checkbox">👟 Calzado cómodo</label></div><div class="pack"><label><input type="checkbox">🎒 Mochila pequeña</label></div><div class="pack"><label><input type="checkbox">💳 Dinero o medio de pago para gastos personales</label></div><div class="pack"><label><input type="checkbox">🩹 Medicamentos personales, si los requiere</label></div></div>
+<div class="progress" id="progress" aria-live="polite">0 de 8 elementos listos</div><button class="btn" id="reset" type="button">Reiniciar lista</button></div>
+</div></section>
 
-  <section class="soft" id="recomendaciones">
-    <div class="container">
-      <div class="section-heading"><div class="eyebrow">Prepárate para caminar</div><h2>Condiciones y recomendaciones</h2><p>El clima puede cambiar durante el día; planea tu vestuario para estar cómodo en cada parada.</p></div>
-      <div class="tips-grid">
-        <article class="panel"><h3>🌦️ Condiciones climáticas</h3><ul><li>Temperatura fresca durante la mañana y al final de la tarde.</li><li>Posibilidad de lluvias, especialmente en el segundo periodo lluvioso del año.</li><li>Cambios rápidos entre momentos soleados y nublados.</li><li>Mayor exposición al viento y al frío durante la visita a Monserrate.</li></ul><div class="callout">💡 Para disfrutar el recorrido cómodamente, se recomienda utilizar ropa adecuada para caminar durante varias horas y que permita adaptarse a los cambios de temperatura.</div></article>
-        <article class="panel"><h3>🧥 Prendas y accesorios</h3><ul><li><strong>Camiseta:</strong> cómoda, preferiblemente transpirable.</li><li><strong>Chaqueta:</strong> abrigada, ligera e impermeable.</li><li><strong>Pantalón:</strong> cómodo, que facilite caminar y subir escaleras.</li><li><strong>Calzado:</strong> tenis o zapatos cerrados con buena suela antideslizante.</li><li><strong>Accesorios:</strong> gorra, gafas de sol y bloqueador solar.</li><li><strong>Mochila:</strong> pequeña, liviana y cómoda para llevar objetos personales.</li></ul><div class="callout">⚠️ Evita tacones, zapatos nuevos que puedan causar ampollas, prendas demasiado pesadas o accesorios que dificulten la movilidad. En Monserrate, el calzado cómodo es especialmente importante.</div></article>
-      </div>
-      <div class="panel" style="margin-top:24px">
-        <h3>🎒 Elementos que debe llevar cada turista</h3>
-        <p>Marca los elementos que ya tienes listos para el recorrido:</p>
-        <div class="packing" id="packing-list">
-          <div class="pack-item"><label><input type="checkbox"><span>💧</span>Botella de agua reutilizable</label></div>
-          <div class="pack-item"><label><input type="checkbox"><span>🌂</span>Chaqueta impermeable o paraguas compacto</label></div>
-          <div class="pack-item"><label><input type="checkbox"><span>☀️</span>Bloqueador solar</label></div>
-          <div class="pack-item"><label><input type="checkbox"><span>🪪</span>Documento de identidad</label></div>
-          <div class="pack-item"><label><input type="checkbox"><span>👟</span>Calzado cómodo</label></div>
-          <div class="pack-item"><label><input type="checkbox"><span>🎒</span>Mochila pequeña</label></div>
-          <div class="pack-item"><label><input type="checkbox"><span>💳</span>Dinero o medio de pago para gastos personales</label></div>
-          <div class="pack-item"><label><input type="checkbox"><span>🩹</span>Medicamentos personales, si los requiere</label></div>
-        </div>
-        <div class="pack-progress" id="pack-progress" aria-live="polite">0 de 8 elementos listos</div>
-        <button class="btn" id="reset-list" type="button" style="margin-top:10px">Reiniciar lista</button>
-      </div>
-    </div>
-  </section>
+<section id="sostenibilidad"><div class="container"><div class="heading"><div class="eyebrow">Viajar con responsabilidad</div><h2>Turismo sostenible</h2><p>Disfrutemos del patrimonio sin deteriorarlo, respetando a las comunidades locales y reduciendo los impactos ambientales.</p></div>
+<div class="sustain">
+<article><h3>🌱 Sostenibilidad ambiental</h3><ul><li>Llevar botella reutilizable y evitar plásticos de un solo uso.</li><li>No arrojar basura; guardar residuos hasta encontrar un lugar adecuado.</li><li>Caminar entre estaciones cercanas para reducir el uso innecesario de vehículos.</li><li>No extraer plantas, alterar fauna ni salirse de senderos autorizados en Monserrate.</li></ul></article>
+<article><h3>🤝 Sostenibilidad sociocultural</h3><ul><li>Respetar las creencias y expresiones religiosas.</li><li>Solicitar autorización antes de fotografiar a personas.</li><li>Cuidar monumentos, fachadas y espacios patrimoniales.</li><li>Mantener un comportamiento respetuoso en lugares institucionales y religiosos.</li></ul></article>
+<article><h3>🛍️ Sostenibilidad económica</h3><ul><li>Promover el consumo en establecimientos y emprendimientos locales.</li><li>Valorar artesanías y productos culturales de la zona.</li><li>Evitar el regateo irrespetuoso y reconocer el trabajo de los comerciantes.</li></ul></article>
+<article><h3>🧭 Bienestar y seguridad</h3><ul><li>Mantenerse junto al grupo y seguir indicaciones de los guías.</li><li>Hidratarse y realizar pausas cuando sea necesario.</li><li>Respetar las capacidades físicas de cada participante.</li><li>En Monserrate, seguir las indicaciones del personal y permanecer en caminos autorizados.</li></ul></article>
+</div></div></section>
 
-  <section id="sostenibilidad">
-    <div class="container">
-      <div class="section-heading"><div class="eyebrow">Viajar con responsabilidad</div><h2>Turismo sostenible</h2><p>El recorrido promoverá prácticas de turismo sostenible que permitan disfrutar del patrimonio sin deteriorarlo, respetando a las comunidades locales y reduciendo los impactos ambientales.</p></div>
-      <div class="sustainability">
-        <article class="sustain-card"><h3>🌱 Sostenibilidad ambiental</h3><ul><li>Llevar botella reutilizable y evitar plásticos de un solo uso.</li><li>No arrojar basura; guardar los residuos hasta encontrar un lugar adecuado para disponerlos.</li><li>Caminar entre estaciones cercanas para reducir el uso innecesario de vehículos.</li><li>No extraer plantas, alterar la fauna ni salirse de los senderos autorizados en Monserrate.</li></ul></article>
-        <article class="sustain-card"><h3>🤝 Sostenibilidad sociocultural</h3><ul><li>Respetar las creencias y expresiones religiosas de visitantes y habitantes.</li><li>Solicitar autorización antes de fotografiar a personas.</li><li>Cuidar monumentos, fachadas y espacios patrimoniales.</li><li>Mantener un comportamiento respetuoso en lugares institucionales y religiosos.</li></ul></article>
-        <article class="sustain-card"><h3>🛍️ Sostenibilidad económica</h3><ul><li>Promover el consumo en establecimientos y emprendimientos locales.</li><li>Valorar las artesanías y productos culturales de la zona.</li><li>Evitar el regateo irrespetuoso y reconocer el trabajo de los comerciantes.</li></ul></article>
-        <article class="sustain-card"><h3>🧭 Bienestar y seguridad</h3><ul><li>Mantenerse junto al grupo y seguir las indicaciones de los guías.</li><li>Hidratarse y realizar pausas cuando sea necesario.</li><li>Respetar las capacidades físicas de cada participante.</li><li>En Monserrate, seguir las indicaciones del personal y permanecer en los caminos autorizados.</li></ul></article>
-      </div>
-    </div>
-  </section>
+<section class="qr-section" id="codigo-qr"><div class="container"><div class="heading"><div class="eyebrow">Comparte el recorrido</div><h2>Escanea y visita nuestra página</h2><p>Usa la cámara de tu celular para abrir el recorrido turístico.</p></div>
+<div class="qr-box"><img id="qr-image" alt="Código QR para acceder a la página web" src="https://placehold.co/240x240/f5f1e7/12385b?text=QR+al+publicar">
+<div class="qr-copy"><h3>📱 Código QR del recorrido</h3><p id="qr-message">El QR se generará automáticamente cuando la página esté publicada en una dirección web pública.</p><p class="qr-note">Importante: después de subir este archivo a GitHub Pages, vuelve a abrir la página publicada. El código QR apuntará a esa dirección.</p><a id="qr-open" class="btn" href="#codigo-qr" hidden>Visitar página</a></div></div>
+</div></section>
 
-  <section class="conclusion" id="conclusion">
-    <div class="container">
-      <div class="section-heading"><div class="eyebrow">Una ciudad, muchas memorias</div><h2>¿Qué nos deja este recorrido?</h2></div>
-      <blockquote>Bogotá no es solamente una ciudad con edificios históricos. Es una ciudad construida a través de <strong>personas, acontecimientos, tradiciones, expresiones artísticas, arquitectura y formas de vivir el espacio.</strong></blockquote>
-      <blockquote>Cada atractivo representa una parte diferente de la ciudad, pero todos juntos permiten comprender cómo Bogotá <strong>conserva su memoria mientras continúa transformándose.</strong></blockquote>
-      <p class="closing-quote">“Conocer nuestro patrimonio es también conocer quiénes somos.”</p>
-    </div>
-  </section>
+<section class="conclusion" id="conclusion"><div class="container"><div class="heading"><div class="eyebrow">Una ciudad, muchas memorias</div><h2>¿Qué nos deja este recorrido?</h2></div>
+<blockquote>Bogotá no es solamente una ciudad con edificios históricos. Es una ciudad construida a través de <strong>personas, acontecimientos, tradiciones, expresiones artísticas, arquitectura y formas de vivir el espacio.</strong></blockquote>
+<blockquote>Cada atractivo representa una parte diferente de la ciudad, pero todos juntos permiten comprender cómo Bogotá <strong>conserva su memoria mientras continúa transformándose.</strong></blockquote>
+<p class="quote">“Conocer nuestro patrimonio es también conocer quiénes somos.”</p>
+</div></section>
 </main>
-<footer><div class="container">© <span id="year"></span> Caminantes Históricos · Bogotá: entre memoria, cultura y tradición · <a class="top-link" href="#inicio">Volver al inicio ↑</a></div></footer>
+<footer>© <span id="year"></span> Caminantes Históricos · Bogotá: entre memoria, cultura y tradición · <a href="#inicio">Volver al inicio ↑</a></footer>
 <script>
-  // Lista interactiva de equipaje: permite marcar y reiniciar los elementos.
-  const checks = [...document.querySelectorAll('#packing-list input[type="checkbox"]')];
-  const progress = document.getElementById('pack-progress');
-  function updateProgress(){
-    const ready = checks.filter(check => check.checked).length;
-    progress.textContent = `${ready} de ${checks.length} elementos listos`;
-  }
-  checks.forEach(check => check.addEventListener('change', updateProgress));
-  document.getElementById('reset-list').addEventListener('click', () => {
-    checks.forEach(check => check.checked = false);
-    updateProgress();
-  });
-  document.getElementById('year').textContent = new Date().getFullYear();
+const checks=[...document.querySelectorAll('#packing input[type="checkbox"]')];
+const progress=document.getElementById('progress');
+function updateProgress(){progress.textContent=`${checks.filter(c=>c.checked).length} de ${checks.length} elementos listos`;}
+checks.forEach(c=>c.addEventListener('change',updateProgress));
+document.getElementById('reset').addEventListener('click',()=>{checks.forEach(c=>c.checked=false);updateProgress();});
+document.getElementById('year').textContent=new Date().getFullYear();
+
+// El QR se activa al abrir el sitio desde una URL pública (por ejemplo GitHub Pages).
+const qrImage=document.getElementById('qr-image');
+const qrMessage=document.getElementById('qr-message');
+const qrOpen=document.getElementById('qr-open');
+if(location.protocol==='https:'||location.protocol==='http:'){
+  const publicUrl=location.href.split('#')[0];
+  qrImage.src='https://api.qrserver.com/v1/create-qr-code/?size=300x300&margin=10&data='+encodeURIComponent(publicUrl);
+  qrImage.alt='Código QR que abre '+publicUrl;
+  qrMessage.textContent='Escanea este código para abrir directamente esta página: '+publicUrl;
+  qrOpen.href=publicUrl;qrOpen.hidden=false;
+}else{
+  qrMessage.textContent='Estás viendo el archivo local. Al publicar la página en GitHub Pages, el QR aparecerá automáticamente y enlazará a su URL pública.';
+}
 </script>
-</body>
-</html>
+</body></html>
